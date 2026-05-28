@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Sanity: list root",
+      "type": "shell",
+      "command": "ls -la",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Git: status short",
+      "type": "shell",
+      "command": "git status -sb",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Placeholder: lint",
+      "type": "shell",
+      "command": "echo 'Configure lint command per stack'",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Placeholder: test",
+      "type": "shell",
+      "command": "echo 'Configure test command per stack'",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}

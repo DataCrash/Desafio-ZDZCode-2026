@@ -1,0 +1,9 @@
+<emoji> <tipo>(escopo opcional): descricao curta
+
+Contexto:
+-
+
+Checklist:
+- [ ] Mudanca atomica
+- [ ] Sem quebra de build/test
+- [ ] Sem dados sensiveis

@@ -1,0 +1,62 @@
+# Dinamico por stack: adicione conforme necessario
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build / Dist
+build/
+dist/
+out/
+coverage/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Java
+*.class
+.gradle/
+
+# Dotnet
+bin/
+obj/
+
+# Rust
+target/
+
+# Temporary
+tmp/
+.temp/
+.cache/
+
+# Placeholders para futuras stacks
+# Go:
+# vendor/
+# PHP:
+# vendor/
+# Ruby:
+# .bundle/
