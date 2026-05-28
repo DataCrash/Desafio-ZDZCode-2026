@@ -2,7 +2,7 @@
 
 Formato sugerido:
 
-<emoji> <tipo>(escopo opcional): descricao curta
+[emoji] [tipo](escopo opcional): descricao curta
 
 Exemplos:
 
