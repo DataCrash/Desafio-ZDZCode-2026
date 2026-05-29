@@ -1,10 +1,12 @@
 # Git Hooks (Opcional)
 
-Este diretorio pode ser habilitado com:
+Este diretório pode ser habilitado com:
 
+```bash
 git config core.hooksPath .githooks
+```
 
 Objetivo:
 
-- Validacoes locais antes de commit
-- Garantir padrao sem quebrar fluxo
+- Validações locais antes de commit
+- Garantir padrão sem quebrar fluxo
