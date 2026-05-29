@@ -7,6 +7,12 @@
       "request": "attach",
       "processId": "${command:PickProcess}",
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Playwright: debug tests",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npx playwright test --debug"
     }
   ]
 }

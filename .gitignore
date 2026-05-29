@@ -4,18 +4,18 @@
 .DS_Store
 Thumbs.db
 .vscode/*
-!.vscode/settings.json
 !.vscode/extensions.json
-!.vscode/tasks.json
 !.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
 
 # Logs
-logs/
 *.log
 npm-debug.log*
+logs/
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 
 # Environment
 .env
@@ -27,14 +27,14 @@ node_modules/
 
 # Build / Dist
 build/
+coverage/
 dist/
 out/
-coverage/
 
 # Python
-__pycache__/
 *.pyc
 .venv/
+__pycache__/
 venv/
 
 # Java
@@ -49,9 +49,9 @@ obj/
 target/
 
 # Temporary
-tmp/
-.temp/
 .cache/
+.temp/
+tmp/
 
 # Placeholders para futuras stacks
 # Go:

@@ -2,13 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Sanity: list root",
-      "type": "shell",
-      "command": "ls -la",
-      "group": "test",
-      "problemMatcher": []
-    },
-    {
       "label": "Git: status short",
       "type": "shell",
       "command": "git status -sb",
@@ -26,6 +19,41 @@
       "label": "Placeholder: test",
       "type": "shell",
       "command": "echo 'Configure test command per stack'",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Playwright: codegen",
+      "type": "shell",
+      "command": "npx playwright codegen",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Playwright: install browsers",
+      "type": "shell",
+      "command": "npx playwright install",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Playwright: test",
+      "type": "shell",
+      "command": "npx playwright test",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Playwright: test ui",
+      "type": "shell",
+      "command": "npx playwright test --ui",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Sanity: list root",
+      "type": "shell",
+      "command": "ls -la",
       "group": "test",
       "problemMatcher": []
     }
