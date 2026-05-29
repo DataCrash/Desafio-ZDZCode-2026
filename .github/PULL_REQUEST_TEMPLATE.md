@@ -1,6 +1,8 @@
+# Pull Request
+
 ## Objetivo da Mudança
 
--
+- Descreva em 1-3 linhas o objetivo principal.
 
 ## Critérios de Aceite Cobertos
 
@@ -8,11 +10,11 @@
 
 ## Evidências
 
--
+- Links, screenshots, logs ou GIFs.
 
 ## Riscos
 
--
+- Pontos de atenção e plano de rollback (se aplicável).
 
 ## Checklist
 

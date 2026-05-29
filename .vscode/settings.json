@@ -48,6 +48,8 @@
   "json.format.keepLines": true,
   "markdown.updateLinksOnFileMove.enabled": "always",
   "markdown.validate.enabled": true,
+  "markdownlint.run": "onSave",
+  "markdownlint.configFile": ".markdownlint.jsonc",
   "peacock.color": "#2F3E46",
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "terminal.integrated.fontFamily": "JetBrains Mono, Cascadia Code, Consolas, monospace",

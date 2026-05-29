@@ -14,13 +14,32 @@ BACKLOG_FILE="$ROOT_DIR/.github/project/backlog.json"
 BOARD_TITLE="${BOARD_TITLE:-Board Desafio ZDZCode 2026}"
 REPO="$GH_OWNER/$GH_REPO"
 
-command -v gh >/dev/null 2>&1 || {
+GH_BIN="${GH_BIN:-$(command -v gh || true)}"
+if [[ -z "$GH_BIN" && -x "/c/Program Files/GitHub CLI/gh.exe" ]]; then
+  GH_BIN="/c/Program Files/GitHub CLI/gh.exe"
+fi
+
+JQ_BIN="${JQ_BIN:-$(command -v jq || true)}"
+if [[ -z "$JQ_BIN" && -x "/c/Users/$USERNAME/AppData/Local/Microsoft/WinGet/Links/jq.exe" ]]; then
+  JQ_BIN="/c/Users/$USERNAME/AppData/Local/Microsoft/WinGet/Links/jq.exe"
+fi
+
+if [[ -z "$GH_BIN" ]]; then
   echo "Erro: GitHub CLI (gh) não encontrado."
   exit 1
-}
-command -v jq >/dev/null 2>&1 || {
+fi
+
+if [[ -z "$JQ_BIN" ]]; then
   echo "Erro: jq não encontrado."
   exit 1
+fi
+
+gh() {
+  "$GH_BIN" "$@"
+}
+
+jq() {
+  "$JQ_BIN" "$@"
 }
 
 gh auth status >/dev/null

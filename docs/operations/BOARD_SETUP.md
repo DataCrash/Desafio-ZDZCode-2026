@@ -9,6 +9,11 @@ Este guia deixa o ambiente pronto para registrar backlog, cards e começar o des
 - Login no GitHub CLI feito (`gh auth login`)
 - Repositório remoto já criado no GitHub
 
+### Observação para Windows + Git Bash
+
+Se você acabou de instalar `gh` ou `jq` e o terminal ainda não reconhece os comandos, feche/reabra o terminal.
+O script `bootstrap_board.sh` também possui fallback para caminhos padrão do WinGet.
+
 ## Artefatos já preparados no repositório
 
 - Template de issue: `.github/ISSUE_TEMPLATE/card.yml`
