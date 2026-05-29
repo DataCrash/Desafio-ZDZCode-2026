@@ -1,19 +1,19 @@
 # ZDZCode
 
-Repositorio inicial com foco em:
+Repositório inicial com foco em:
 
-- Setup de colaboracao e padroes de equipe
+- Setup de colaboração e padrões de equipe
 - Fluxo GitFlow (develop/master)
-- Politica forward-only
-- Memoria isolada de sistema em .copilot
+- Política forward-only
+- Memória isolada de sistema em .copilot
 
 ## Estrutura inicial
 
-- .copilot/: memoria operacional do projeto
-- .vscode/: padroes de ambiente para equipe
-- docs/governance/: politicas e guias de fluxo
+- .copilot/: memória operacional do projeto
+- .vscode/: padrões de ambiente para equipe
+- docs/governance/: políticas e guias de fluxo
 
-## Proximos passos
+## Próximos passos
 
 - Definir stack principal
 - Configurar lint/test/build por stack

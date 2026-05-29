@@ -8,7 +8,7 @@
 
 -
 
-## Nao Fazer
+## Não Fazer
 
 -
 
@@ -18,10 +18,10 @@
 
 ## Progresso
 
-- [ ] Pre-execucao concluida
-- [ ] Execucao concluida
-- [ ] Pre-entrega concluida
+- [ ] Pre-execução concluída
+- [ ] Execução concluída
+- [ ] Pre-entrega concluída
 
-## Evidencias
+## Evidências
 
 -

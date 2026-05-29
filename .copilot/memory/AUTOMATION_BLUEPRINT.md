@@ -1,12 +1,12 @@
-# Blueprint de Automacao (Agentes, Skills e Tools)
+# Blueprint de Automação (Agentes, Skills e Tools)
 
-Regra de governanca: nada novo e criado sem proposta objetiva + aprovacao explicita.
+Regra de governança: nada novo é criado sem proposta objetiva + aprovação explícita.
 
 ## Quando propor um novo Agente
 
-Propor apenas se houver repeticao de fluxo multi-etapa com risco alto de erro manual.
+Propor apenas se houver repetição de fluxo multi-etapa com risco alto de erro manual.
 
-Criterio objetivo (todos devem ser verdadeiros):
+Critério objetivo (todos devem ser verdadeiros):
 
 - O fluxo aparece em pelo menos 3 tarefas por semana.
 - O fluxo exige 5 ou mais passos.
@@ -14,35 +14,35 @@ Criterio objetivo (todos devem ser verdadeiros):
 
 ## Quando propor uma nova Skill
 
-Propor apenas se houver conhecimento estavel que precisa ser aplicado de forma consistente.
+Propor apenas se houver conhecimento estável que precisa ser aplicado de forma consistente.
 
-Criterio objetivo:
+Critério objetivo:
 
-- Existe regra fixa que nao deve variar por tarefa.
-- Essa regra impacta qualidade, custo ou seguranca.
-- A regra ja foi repetida manualmente pelo menos 3 vezes.
+- Existe regra fixa que não deve variar por tarefa.
+- Essa regra impacta qualidade, custo ou segurança.
+- A regra já foi repetida manualmente pelo menos 3 vezes.
 
 ## Quando propor uma nova Tool
 
-Propor apenas se faltar capacidade real para executar uma etapa critica.
+Propor apenas se faltar capacidade real para executar uma etapa crítica.
 
-Criterio objetivo:
+Critério objetivo:
 
-- A capacidade nao existe nas tools atuais.
+- A capacidade não existe nas tools atuais.
 - Sem essa capacidade, a entrega fica parcial ou lenta.
-- Ha ganho claro de tempo ou reducao de falha.
+- Há ganho claro de tempo ou redução de falha.
 
 ## Formato de Proposta Obrigatorio
 
 - Problema concreto
 - Solucao proposta
-- Criterio irrefutavel de ganho
-- Risco de nao implementar
-- Escopo minimo da implementacao
+- Critério irrefutável de ganho
+- Risco de não implementar
+- Escopo mínimo da implementação
 - Plano em 3 passos
 
-## Gate de Aprovacao
+## Gate de Aprovação
 
 - Etapa 1: proposta curta
-- Etapa 2: sua aprovacao
-- Etapa 3: implementacao controlada
+- Etapa 2: sua aprovação
+- Etapa 3: implementação controlada

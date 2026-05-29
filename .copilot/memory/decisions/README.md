@@ -1,11 +1,11 @@
-# Registro de Decisoes
+# Registro de Decisões
 
-Use este arquivo (ou arquivos por decisao) para registrar decisoes importantes.
+Use este arquivo (ou arquivos por decisão) para registrar decisões importantes.
 
 ## Template
 
 - Data:
-- Titulo:
+- Título:
 - Contexto:
-- Decisao:
-- Consequencias:
+- Decisão:
+- Consequências:

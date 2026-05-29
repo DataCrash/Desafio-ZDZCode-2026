@@ -1,23 +1,23 @@
-# Checklist de Execucao (Anti-Deriva)
+# Checklist de Execução (Anti-Deriva)
 
-Use antes de editar codigo e antes de concluir a entrega.
+Use antes de editar código e antes de concluir a entrega.
 
-## Pre-Execucao
+## Pre-Execução
 
-- [ ] Li o escopo exato da solicitacao atual.
-- [ ] Confirmei o que e proibido nesta tarefa.
-- [ ] Verifiquei se existe nome canonico no glossario.
+- [ ] Li o escopo exato da solicitação atual.
+- [ ] Confirmei o que é proibido nesta tarefa.
+- [ ] Verifiquei se existe nome canônico no glossário.
 - [ ] Listei apenas objetivos que foram pedidos.
 
-## Durante a Execucao
+## Durante a Execução
 
-- [ ] Nao mudei nomes sem pedido explicito.
-- [ ] Nao criei arquivos/estruturas fora do necessario.
-- [ ] Mantive alteracoes pequenas e focadas.
-- [ ] Evitei explicacoes longas nao solicitadas.
+- [ ] Não mudei nomes sem pedido explícito.
+- [ ] Não criei arquivos/estruturas fora do necessário.
+- [ ] Mantive alterações pequenas e focadas.
+- [ ] Evitei explicações longas não solicitadas.
 
 ## Pre-Entrega
 
-- [ ] Validacao basica sem erros relevantes.
+- [ ] Validação básica sem erros relevantes.
 - [ ] Resultado atende exatamente ao pedido.
 - [ ] Itens opcionais (se houver) separados do escopo principal.

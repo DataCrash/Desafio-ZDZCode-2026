@@ -3,14 +3,14 @@
 ## Estado atual
 
 - Projeto iniciado.
-- Stack ainda nao definida.
+- Stack ainda não definida.
 
 ## Premissas
 
-- Fluxo GitFlow com develop como branch padrao de desenvolvimento.
-- Politica forward-only.
+- Fluxo GitFlow com develop como branch padrão de desenvolvimento.
+- Política forward-only.
 
-## Pendencias
+## Pendências
 
 - Definir stack principal.
-- Definir padroes de linting por linguagem.
+- Definir padrões de linting por linguagem.

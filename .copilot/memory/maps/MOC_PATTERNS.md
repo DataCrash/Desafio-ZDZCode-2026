@@ -1,4 +1,4 @@
-# Mapa de Padroes
+# Mapa de Padrões
 
-- [[../patterns/README|Padroes do Projeto]]
-- [[../patterns/CANONICAL_GLOSSARY|Glossario Canonico]]
+- [[../patterns/README|Padrões do Projeto]]
+- [[../patterns/CANONICAL_GLOSSARY|Glossário Canônico]]

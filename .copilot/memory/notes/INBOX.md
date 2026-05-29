@@ -1,6 +1,6 @@
 # Inbox
 
-Captura rapida de pontos para triagem.
+Captura rápida de pontos para triagem.
 
 ## Itens
 
