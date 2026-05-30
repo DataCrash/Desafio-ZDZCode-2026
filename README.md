@@ -114,3 +114,4 @@ GH_OWNER="DataCrash" GH_REPO="Desafio-ZDZCode-2026" BOARD_TITLE="Board Desafio Z
 ## Evidências de aceite
 
 - Checklist consolidado do PDF: `docs/quality/pdf-acceptance-checklist.md`
+- Resumo executivo final: `docs/quality/final-executive-summary.md`
