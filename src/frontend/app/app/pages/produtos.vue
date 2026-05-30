@@ -164,7 +164,7 @@ async function removeProduct(id: number) {
 
     if (statusCode === 409) {
       errorMessage.value =
-        "Operacao bloqueada por regra de integridade referencial.";
+        "Operation blocked by referential integrity rule.";
       return;
     }
 

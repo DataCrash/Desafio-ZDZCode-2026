@@ -110,7 +110,7 @@ async function removeCategory(id: number) {
     const backendMessage = error?.data?.message;
     if (statusCode === 409) {
       errorMessage.value =
-        "Nao e possivel excluir uma categoria com produtos vinculados.";
+        "It is not possible to delete a category with linked products.";
       return;
     }
 
