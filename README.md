@@ -67,8 +67,8 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 
 ```json
 {
-	"name": "Bebidas Frias",
-	"description": "Itens gelados"
+  "name": "Bebidas Frias",
+  "description": "Itens gelados"
 }
 ```
 
@@ -76,10 +76,10 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 
 ```json
 {
-	"name": "Refrigerante Cola 2L",
-	"description": "Garrafa pet",
-	"price": 12.5,
-	"categoryId": 1
+  "name": "Refrigerante Cola 2L",
+  "description": "Garrafa pet",
+  "price": 12.5,
+  "categoryId": 1
 }
 ```
 
