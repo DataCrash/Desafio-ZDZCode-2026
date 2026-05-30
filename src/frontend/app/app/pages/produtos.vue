@@ -182,19 +182,28 @@ onMounted(loadData);
       <p>Manage products and category links.</p>
     </header>
 
-    <div class="panel form-panel">
+    <div class="neo-card form-card">
       <h2>Create product</h2>
       <div class="form-grid">
-        <input v-model="createForm.name" placeholder="Name (min 5)" />
-        <input v-model="createForm.description" placeholder="Description" />
+        <input
+          v-model="createForm.name"
+          class="neo-input"
+          placeholder="Name (min 5)"
+        />
+        <input
+          v-model="createForm.description"
+          class="neo-input"
+          placeholder="Description"
+        />
         <input
           v-model.number="createForm.price"
+          class="neo-input"
           type="number"
           min="0.01"
           step="0.01"
           placeholder="Price"
         />
-        <select v-model.number="createForm.categoryId">
+        <select v-model.number="createForm.categoryId" class="neo-input">
           <option :value="null">Select category</option>
           <option
             v-for="category in categories"
@@ -204,75 +213,106 @@ onMounted(loadData);
             {{ category.name }}
           </option>
         </select>
-        <button :disabled="!isCreateValid" @click="createProduct">Save</button>
+        <button
+          class="neo-button primary"
+          :disabled="!isCreateValid"
+          @click="createProduct"
+        >
+          Save
+        </button>
       </div>
     </div>
 
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-    <p v-if="loading">Loading...</p>
+    <p v-if="errorMessage" class="neo-alert danger">{{ errorMessage }}</p>
+    <p v-if="loading" class="loading-note">Loading products...</p>
 
-    <div class="panel table-panel" v-if="!loading">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in products" :key="item.id">
-            <td>{{ item.id }}</td>
-            <td v-if="editingId !== item.id">{{ item.name }}</td>
-            <td v-else><input v-model="editForm.name" /></td>
-            <td v-if="editingId !== item.id">{{ item.description }}</td>
-            <td v-else><input v-model="editForm.description" /></td>
-            <td v-if="editingId !== item.id">
-              {{ Number(item.price).toFixed(2) }}
-            </td>
-            <td v-else>
-              <input
-                v-model.number="editForm.price"
-                type="number"
-                min="0.01"
-                step="0.01"
-              />
-            </td>
-            <td v-if="editingId !== item.id">
-              {{ item.category?.name || "-" }}
-            </td>
-            <td v-else>
-              <select v-model.number="editForm.categoryId">
-                <option :value="null">Select category</option>
-                <option
-                  v-for="category in categories"
-                  :key="category.id"
-                  :value="category.id"
-                >
-                  {{ category.name }}
-                </option>
-              </select>
-            </td>
-            <td>
-              <template v-if="editingId !== item.id">
-                <button @click="startEdit(item)">Edit</button>
-                <button class="danger" @click="removeProduct(item.id)">
-                  Delete
-                </button>
-              </template>
-              <template v-else>
-                <button :disabled="!isEditValid" @click="saveEdit(item.id)">
-                  Save
-                </button>
-                <button @click="cancelEdit">Cancel</button>
-              </template>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="neo-card table-card" v-if="!loading">
+      <div class="table-wrap" v-if="products.length > 0">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in products" :key="item.id">
+              <td class="id-col">{{ item.id }}</td>
+              <td v-if="editingId !== item.id">{{ item.name }}</td>
+              <td v-else>
+                <input v-model="editForm.name" class="neo-input" />
+              </td>
+              <td v-if="editingId !== item.id">
+                {{ item.description || "-" }}
+              </td>
+              <td v-else>
+                <input v-model="editForm.description" class="neo-input" />
+              </td>
+              <td v-if="editingId !== item.id" class="price-col">
+                {{ Number(item.price).toFixed(2) }}
+              </td>
+              <td v-else>
+                <input
+                  v-model.number="editForm.price"
+                  class="neo-input"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                />
+              </td>
+              <td v-if="editingId !== item.id">
+                {{ item.category?.name || "-" }}
+              </td>
+              <td v-else>
+                <select v-model.number="editForm.categoryId" class="neo-input">
+                  <option :value="null">Select category</option>
+                  <option
+                    v-for="category in categories"
+                    :key="category.id"
+                    :value="category.id"
+                  >
+                    {{ category.name }}
+                  </option>
+                </select>
+              </td>
+              <td class="actions">
+                <template v-if="editingId !== item.id">
+                  <button class="neo-button ghost" @click="startEdit(item)">
+                    Edit
+                  </button>
+                  <button
+                    class="neo-button ghost danger"
+                    @click="removeProduct(item.id)"
+                  >
+                    Delete
+                  </button>
+                </template>
+                <template v-else>
+                  <button
+                    class="neo-button primary"
+                    :disabled="!isEditValid"
+                    @click="saveEdit(item.id)"
+                  >
+                    Save
+                  </button>
+                  <button class="neo-button ghost" @click="cancelEdit">
+                    Cancel
+                  </button>
+                </template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div v-else class="empty-state">
+        <strong>No products yet</strong>
+        <p>Create your first product and link it to a category.</p>
+      </div>
     </div>
   </section>
 </template>
@@ -285,46 +325,150 @@ onMounted(loadData);
 
 .screen-header h1 {
   margin: 0;
+  font-family: "Sora", "Manrope", sans-serif;
+  letter-spacing: 0.01em;
 }
 
-.panel {
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
+.screen-header p {
+  margin: 0.3rem 0 0;
+  color: var(--text-soft);
+}
+
+.neo-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface-strong) 86%, transparent);
+  box-shadow: var(--shadow);
   padding: 1rem;
-  background: #ffffff;
+}
+
+.form-card h2 {
+  margin: 0 0 0.78rem;
+  font-size: 1rem;
 }
 
 .form-grid {
   display: grid;
-  gap: 0.5rem;
-  grid-template-columns: 1fr 1fr 140px 1fr auto;
+  gap: 0.62rem;
+  grid-template-columns: 1.15fr 1fr 130px 1fr auto;
+}
+
+.neo-input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--text);
+  font: inherit;
+  padding: 0.56rem 0.68rem;
+  outline: none;
+  transition: border-color 120ms ease;
+}
+
+.neo-input:focus {
+  border-color: color-mix(in srgb, var(--accent) 68%, var(--line));
+}
+
+.neo-button {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.52rem 0.86rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.neo-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.neo-button.primary {
+  background: var(--accent);
+  color: #05201d;
+}
+
+.neo-button.ghost {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text-soft);
+}
+
+.neo-button.ghost:hover {
+  color: var(--text);
+}
+
+.neo-button.ghost.danger {
+  color: var(--danger);
+}
+
+.neo-alert {
+  border-radius: 12px;
+  padding: 0.68rem 0.75rem;
+  border: 1px solid transparent;
+}
+
+.neo-alert.danger {
+  border-color: color-mix(in srgb, var(--danger) 35%, var(--line));
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+.loading-note {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.table-wrap {
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 840px;
 }
 
 th,
 td {
-  border-bottom: 1px solid #e2e8f0;
-  padding: 0.5rem;
+  border-bottom: 1px solid var(--line);
+  padding: 0.68rem 0.45rem;
   text-align: left;
 }
 
-button {
-  margin-right: 0.4rem;
+th {
+  color: var(--text-soft);
+  font-weight: 700;
+  font-size: 0.8rem;
 }
 
-.danger {
-  color: #b91c1c;
+.id-col {
+  color: var(--text-soft);
+  font-weight: 700;
 }
 
-.error {
-  color: #b91c1c;
+.price-col {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
 }
 
-@media (max-width: 1100px) {
+.actions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 1.4rem 0.8rem;
+}
+
+.empty-state p {
+  color: var(--text-soft);
+  margin: 0.35rem 0 0;
+}
+
+@media (max-width: 1140px) {
   .form-grid {
     grid-template-columns: 1fr;
   }
