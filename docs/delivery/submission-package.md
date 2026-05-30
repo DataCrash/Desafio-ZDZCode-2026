@@ -11,6 +11,7 @@
 Variacoes prontas (curta e detalhada):
 
 - `docs/delivery/submission-message-variants.md`
+- `docs/delivery/submission-message-variants.en.md`
 
 Assunto sugerido:
 
