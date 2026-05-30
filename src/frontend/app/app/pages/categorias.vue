@@ -106,7 +106,14 @@ async function removeCategory(id: number) {
     await $fetch(`${apiBase}/api/categorias/${id}`, { method: "DELETE" });
     categories.value = categories.value.filter((item) => item.id !== id);
   } catch (error: any) {
+    const statusCode = error?.statusCode || error?.response?.status;
     const backendMessage = error?.data?.message;
+    if (statusCode === 409) {
+      errorMessage.value =
+        "Nao e possivel excluir uma categoria com produtos vinculados.";
+      return;
+    }
+
     errorMessage.value = backendMessage || "Failed to delete category.";
   }
 }

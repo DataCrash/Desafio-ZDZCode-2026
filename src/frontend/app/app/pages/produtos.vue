@@ -158,8 +158,17 @@ async function removeProduct(id: number) {
   try {
     await $fetch(`${apiBase}/api/produtos/${id}`, { method: "DELETE" });
     products.value = products.value.filter((item) => item.id !== id);
-  } catch {
-    errorMessage.value = "Failed to delete product.";
+  } catch (error: any) {
+    const statusCode = error?.statusCode || error?.response?.status;
+    const backendMessage = error?.data?.message;
+
+    if (statusCode === 409) {
+      errorMessage.value =
+        "Operacao bloqueada por regra de integridade referencial.";
+      return;
+    }
+
+    errorMessage.value = backendMessage || "Failed to delete product.";
   }
 }
 
