@@ -8,6 +8,10 @@
 
 ## Mensagem pronta para submissao
 
+Variacoes prontas (curta e detalhada):
+
+- `docs/delivery/submission-message-variants.md`
+
 Assunto sugerido:
 
 `Submissao - Desafio Tecnico ZDZCode 2026`
