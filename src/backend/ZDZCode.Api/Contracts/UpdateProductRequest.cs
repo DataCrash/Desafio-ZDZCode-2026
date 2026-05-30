@@ -12,7 +12,7 @@ public sealed class UpdateProductRequest
     [MaxLength(500)]
     public string? Description { get; set; }
 
-    [Range(typeof(decimal), "0.01", "9999999999")]
+    [Range(typeof(decimal), "0.01", "9999999999", ParseLimitsInInvariantCulture = true, ConvertValueInInvariantCulture = true)]
     public decimal Price { get; set; }
 
     public int CategoryId { get; set; }

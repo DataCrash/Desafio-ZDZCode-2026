@@ -16,7 +16,7 @@ public sealed class Product
     public string? Description { get; set; }
 
     [Column(TypeName = "decimal(18,2)")]
-    [Range(typeof(decimal), "0.01", "9999999999")]
+    [Range(typeof(decimal), "0.01", "9999999999", ParseLimitsInInvariantCulture = true, ConvertValueInInvariantCulture = true)]
     public decimal Price { get; set; }
 
     public int CategoryId { get; set; }
