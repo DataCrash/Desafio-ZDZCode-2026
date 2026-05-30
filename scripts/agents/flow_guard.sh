@@ -21,9 +21,15 @@ else
 fi
 
 last_subject="$(git log -1 --pretty=%s)"
-# Esperado: <emoji> tipo(escopo opcional): descrição
-if [[ "$last_subject" =~ ^[^[:alnum:][:space:]]+[[:space:]]+[a-z]+(\([a-zA-Z0-9._/-]+\))?:[[:space:]].+ ]]; then
-  pass "Mensagem de commit no padrão com emoji"
+# Esperado: <prefixo com emoji> tipo(escopo opcional): descrição
+# Em alguns terminais Windows o emoji pode sofrer mojibake, mas ainda vem no primeiro token.
+if [[ "$last_subject" =~ ^([^[:space:]]+)[[:space:]]+([a-z]+(\([a-zA-Z0-9._/-]+\))?:[[:space:]].+) ]]; then
+  emoji_token="${BASH_REMATCH[1]}"
+  if [[ "$emoji_token" =~ [^[:alnum:]] ]]; then
+    pass "Mensagem de commit no padrão com emoji"
+  else
+    fail "Mensagem de commit fora do padrão com emoji: $last_subject"
+  fi
 else
   fail "Mensagem de commit fora do padrão com emoji: $last_subject"
 fi

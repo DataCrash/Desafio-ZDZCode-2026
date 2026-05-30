@@ -12,16 +12,16 @@ fi
 [[ -n "$GH_BIN" ]] || { echo "Erro: gh não encontrado"; exit 1; }
 
 echo "==> Delivery Prep"
-issues_total="$($GH_BIN issue list --repo "$GH_OWNER/$GH_REPO" --limit 300 --json number | jq 'length')"
+issues_total="$("$GH_BIN" issue list --repo "$GH_OWNER/$GH_REPO" --limit 300 --json number | jq 'length')"
 echo "Issues no repositório: $issues_total"
 
-board_number="$($GH_BIN project list --owner "$GH_OWNER" --format json | jq -r --arg t "$BOARD_TITLE" '.projects[] | select(.title == $t) | .number' | head -n1)"
+board_number="$("$GH_BIN" project list --owner "$GH_OWNER" --format json | jq -r --arg t "$BOARD_TITLE" '.projects[] | select(.title == $t) | .number' | head -n1)"
 if [[ -z "$board_number" ]]; then
   echo "Erro: board não encontrado: $BOARD_TITLE"
   exit 1
 fi
 
-items_total="$($GH_BIN project item-list "$board_number" --owner "$GH_OWNER" --format json | jq '.items | length')"
+items_total="$("$GH_BIN" project item-list "$board_number" --owner "$GH_OWNER" --format json | jq '.items | length')"
 echo "Itens no board #$board_number: $items_total"
 
 if [[ "$items_total" -lt "$issues_total" ]]; then
