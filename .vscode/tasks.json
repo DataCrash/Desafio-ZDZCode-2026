@@ -11,14 +11,14 @@
     {
       "label": "Placeholder: lint",
       "type": "shell",
-      "command": "echo 'Configure lint command per stack'",
+      "command": "cd src/frontend/app && npm run typecheck && cd ../../.. && dotnet build src/backend/ZDZCode.Api/ZDZCode.Api.csproj -nologo",
       "group": "build",
       "problemMatcher": [ ]
     },
     {
       "label": "Placeholder: test",
       "type": "shell",
-      "command": "echo 'Configure test command per stack'",
+      "command": "dotnet test src/backend/ZDZCode.Api/ZDZCode.Api.csproj -nologo --no-build",
       "group": "test",
       "problemMatcher": [ ]
     },

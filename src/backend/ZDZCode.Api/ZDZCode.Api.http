@@ -1,0 +1,6 @@
+@ZDZCode.Api_HostAddress = http://localhost:5286
+
+GET {{ZDZCode.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
