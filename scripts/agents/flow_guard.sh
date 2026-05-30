@@ -21,8 +21,12 @@ else
 fi
 
 last_subject="$(git log -1 --pretty=%s)"
+# Bloqueia explicitamente padrões comuns de mojibake para evitar recorrência.
+if grep -Eq 'ï¿¿|�|\xEF\xBF\xBD' <<<"$last_subject"; then
+  fail "Mensagem de commit com mojibake detectado: $last_subject"
+fi
+
 # Esperado: <prefixo com emoji> tipo(escopo opcional): descrição
-# Em alguns terminais Windows o emoji pode sofrer mojibake, mas ainda vem no primeiro token.
 if [[ "$last_subject" =~ ^([^[:space:]]+)[[:space:]]+([a-z]+(\([a-zA-Z0-9._/-]+\))?:[[:space:]].+) ]]; then
   emoji_token="${BASH_REMATCH[1]}"
   if [[ "$emoji_token" =~ [^[:alnum:]] ]]; then
