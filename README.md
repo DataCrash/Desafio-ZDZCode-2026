@@ -115,6 +115,7 @@ GH_OWNER="DataCrash" GH_REPO="Desafio-ZDZCode-2026" BOARD_TITLE="Board Desafio Z
 
 - Checklist consolidado do PDF: `docs/quality/pdf-acceptance-checklist.md`
 - Resumo executivo final: `docs/quality/final-executive-summary.md`
+- Fechamento final (1 pagina): `docs/delivery/final-delivery-one-page.md`
 - Pacote final de submissão: `docs/delivery/submission-package.md`
 - Variações de mensagem de submissão: `docs/delivery/submission-message-variants.md`
 - Variações de mensagem de submissão (EN): `docs/delivery/submission-message-variants.en.md`

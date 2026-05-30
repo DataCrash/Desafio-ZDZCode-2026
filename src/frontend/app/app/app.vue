@@ -59,8 +59,16 @@ onMounted(() => {
         <NuxtLink to="/produtos">Products</NuxtLink>
       </nav>
 
-      <button class="theme-toggle" type="button" @click="toggleTheme">
-        {{ theme === "dark" ? "Light" : "Dark" }}
+      <button
+        class="theme-toggle"
+        type="button"
+        :aria-label="
+          theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'
+        "
+        :title="theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'"
+        @click="toggleTheme"
+      >
+        {{ theme === "dark" ? "☀️" : "🌙" }}
       </button>
     </header>
 
