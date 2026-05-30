@@ -243,12 +243,8 @@ onMounted(loadData);
             <tr v-for="item in products" :key="item.id">
               <td class="id-col">{{ item.id }}</td>
               <td v-if="editingId !== item.id">{{ item.name }}</td>
-              <td v-else>
-                <input v-model="editForm.name" class="neo-input" />
-              </td>
-              <td v-if="editingId !== item.id">
-                {{ item.description || "-" }}
-              </td>
+              <td v-else><input v-model="editForm.name" class="neo-input" /></td>
+              <td v-if="editingId !== item.id">{{ item.description || "-" }}</td>
               <td v-else>
                 <input v-model="editForm.description" class="neo-input" />
               </td>

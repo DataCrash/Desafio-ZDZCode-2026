@@ -101,6 +101,8 @@ body {
   --accent-strong: #0f766e;
   --danger: #dc2626;
   --shadow: 0 14px 34px rgba(14, 18, 34, 0.08);
+  --focus-ring: rgba(14, 165, 164, 0.35);
+  --row-hover: rgba(14, 165, 164, 0.08);
 
   min-height: 100vh;
   color: var(--text);
@@ -131,6 +133,8 @@ body {
   --accent-strong: #14b8a6;
   --danger: #f87171;
   --shadow: 0 16px 36px rgba(3, 7, 18, 0.35);
+  --focus-ring: rgba(45, 212, 191, 0.35);
+  --row-hover: rgba(45, 212, 191, 0.1);
 }
 
 .topbar {
@@ -179,11 +183,15 @@ body {
   text-decoration: none;
   font-weight: 700;
   font-size: 0.86rem;
-  transition: background-color 120ms ease;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    transform 120ms ease;
 }
 
 .topbar-nav a:hover {
   background: color-mix(in srgb, var(--surface-strong) 74%, transparent);
+  transform: translateY(-1px);
 }
 
 .topbar-nav a.router-link-active {
@@ -202,17 +210,49 @@ body {
   line-height: 1;
   padding: 0.48rem 0.72rem;
   cursor: pointer;
-  transition: all 130ms ease;
+  transition:
+    border-color 130ms ease,
+    color 130ms ease,
+    transform 130ms ease,
+    box-shadow 130ms ease;
 }
 
 .theme-toggle:hover {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
   color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible,
+.topbar-nav a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .page-container {
   width: min(1220px, 95vw);
   margin: 1.05rem auto 2rem;
+  animation: page-enter 240ms ease;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-container,
+  .theme-toggle,
+  .topbar-nav a {
+    animation: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 880px) {

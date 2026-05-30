@@ -239,6 +239,13 @@ onMounted(loadCategories);
   background: color-mix(in srgb, var(--surface-strong) 86%, transparent);
   box-shadow: var(--shadow);
   padding: 1rem;
+  transition:
+    border-color 140ms ease,
+    transform 140ms ease;
+}
+
+.neo-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 28%, var(--line));
 }
 
 .form-card h2 {
@@ -266,6 +273,7 @@ onMounted(loadCategories);
 
 .neo-input:focus {
   border-color: color-mix(in srgb, var(--accent) 68%, var(--line));
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .neo-button {
@@ -275,6 +283,11 @@ onMounted(loadCategories);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
+  transition:
+    transform 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease,
+    background-color 120ms ease;
 }
 
 .neo-button:disabled {
@@ -285,6 +298,15 @@ onMounted(loadCategories);
 .neo-button.primary {
   background: var(--accent);
   color: #05201d;
+}
+
+.neo-button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.neo-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .neo-button.ghost {
@@ -331,7 +353,7 @@ table {
 th,
 td {
   border-bottom: 1px solid var(--line);
-  padding: 0.68rem 0.45rem;
+  padding: 0.72rem 0.5rem;
   text-align: left;
 }
 
@@ -339,6 +361,15 @@ th {
   color: var(--text-soft);
   font-weight: 700;
   font-size: 0.8rem;
+  letter-spacing: 0.01em;
+}
+
+tbody tr {
+  transition: background-color 120ms ease;
+}
+
+tbody tr:hover {
+  background: var(--row-hover);
 }
 
 .id-col {
