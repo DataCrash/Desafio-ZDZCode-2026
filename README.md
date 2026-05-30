@@ -110,3 +110,7 @@ Sincronização de status por label/estado:
 ```bash
 GH_OWNER="DataCrash" GH_REPO="Desafio-ZDZCode-2026" BOARD_TITLE="Board Desafio ZDZCode 2026" ./scripts/github/sync_board_status.sh
 ```
+
+## Evidências de aceite
+
+- Checklist consolidado do PDF: `docs/quality/pdf-acceptance-checklist.md`
