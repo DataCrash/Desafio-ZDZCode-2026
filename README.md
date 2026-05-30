@@ -115,3 +115,4 @@ GH_OWNER="DataCrash" GH_REPO="Desafio-ZDZCode-2026" BOARD_TITLE="Board Desafio Z
 
 - Checklist consolidado do PDF: `docs/quality/pdf-acceptance-checklist.md`
 - Resumo executivo final: `docs/quality/final-executive-summary.md`
+- Pacote final de submissão: `docs/delivery/submission-package.md`
