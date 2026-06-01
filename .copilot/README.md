@@ -1,19 +1,19 @@
-# Memoria Isolada do Sistema
+# Memória Isolada do Sistema
 
-Esta pasta contem a memoria operacional e tecnica usada pelo agente para este repositorio.
-O objetivo e preservar contexto, decisoes e convencoes sem misturar com outros projetos.
+Esta pasta contém a memória operacional e técnica usada pelo agente para este repositório.
+O objetivo é preservar contexto, decisões e convenções sem misturar com outros projetos.
 
 ## Estrutura
 
 - memory/context: estado atual do sistema, termos e premissas.
-- memory/decisions: decisoes arquiteturais e operacionais (ADR simplificado).
-- memory/patterns: padroes recorrentes de implementacao e naming.
+- memory/decisions: decisões arquiteturais e operacionais (ADR simplificado).
+- memory/patterns: padrões recorrentes de implementação e naming.
 - memory/runbooks: procedimentos operacionais (build, release, incidentes).
-- memory/templates: modelos reutilizaveis para novos documentos.
-- drafts: rascunhos temporarios.
+- memory/templates: modelos reutilizáveis para novos documentos.
+- drafts: rascunhos temporários.
 
 ## Regras
 
-- Atualize os documentos de memoria ao fim de alteracoes relevantes.
-- Evite dados sensiveis e segredos nesta pasta.
+- Atualize os documentos de memória ao fim de alterações relevantes.
+- Evite dados sensíveis e segredos nesta pasta.
 - Prefira entradas curtas, objetivas e datadas.

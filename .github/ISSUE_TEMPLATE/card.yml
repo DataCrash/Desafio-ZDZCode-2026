@@ -1,0 +1,62 @@
+name: "Card de Desenvolvimento"
+description: "Template padrão para cards do board do desafio"
+title: "[AREA] [FASE] "
+labels:
+  - "type:feature"
+body:
+  - type: input
+    id: contexto
+    attributes:
+      label: Contexto
+      description: Qual parte do desafio este item cobre e qual dor resolve?
+      placeholder: Contexto objetivo do card
+    validations:
+      required: true
+
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+      description: Resultado técnico esperado ao concluir o item.
+      placeholder: Entregar...
+    validations:
+      required: true
+
+  - type: textarea
+    id: criterios_aceite
+    attributes:
+      label: Critérios de aceite
+      description: Lista verificável do que precisa funcionar para considerar pronto.
+      placeholder: |
+        - [ ] Critério 1
+        - [ ] Critério 2
+    validations:
+      required: true
+
+  - type: textarea
+    id: fora_escopo
+    attributes:
+      label: Fora de escopo
+      description: Itens explicitamente não cobertos por este card.
+      placeholder: |
+        - Não inclui...
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidência esperada
+      description: Endpoints testados, screenshot, logs ou GIF curto do fluxo.
+      placeholder: Evidências de pronto
+    validations:
+      required: true
+
+  - type: input
+    id: criterio_pdf
+    attributes:
+      label: Critério do PDF impactado
+      description: Cite o critério principal do desafio coberto por este card.
+      placeholder: Por exemplo, Bloquear exclusão de categoria vinculada
+    validations:
+      required: true

@@ -1,10 +1,10 @@
 # Runbooks
 
-Playbooks operacionais para execucao recorrente.
+Playbooks operacionais para execução recorrente.
 
-## Sugestoes de runbooks futuros
+## Sugestões de runbooks futuros
 
 - Setup de ambiente local
 - Processo de release
-- Procedimento de rollback logico (forward-only)
+- Procedimento de rollback lógico (forward-only)
 - Rotina de resposta a incidente

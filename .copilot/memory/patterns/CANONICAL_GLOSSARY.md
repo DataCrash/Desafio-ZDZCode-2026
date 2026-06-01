@@ -1,43 +1,43 @@
-# Glossario Canonico
+# Glossário Canônico
 
-Este arquivo define os nomes oficiais do dominio. Nao renomear sem ordem explicita.
+Este arquivo define os nomes oficiais do domínio. Não renomear sem ordem explícita.
 
 ## Entidades
 
-- ZDZCode: nome canonico do repositorio/workspace atual.
+- ZDZCode: nome canônico do repositório/workspace atual.
 - Obsidian vault: a pasta .copilot/memory aberta no Obsidian como fonte de verdade operacional.
-- MOC_HOME: dashboard central da memoria operacional.
+- MOC_HOME: dashboard central da memória operacional.
 - Tarefa Ativa: nota operacional corrente em notes/ACTIVE_TASK.md.
-- Inbox: nota de captura rapida em notes/INBOX.md.
+- Inbox: nota de captura rápida em notes/INBOX.md.
 
-## Variaveis e Campos Criticos
+## Variáveis e Campos Críticos
 
-- develop: branch canonica de desenvolvimento.
-- master: branch canonica de release/comparacao.
-- forward-only: politica canonica de historico sem reescrita destrutiva.
-- escopo fechado: conjunto explicito e verificavel do que foi pedido em uma tarefa.
-- nomes canonicos: nomes oficiais que nao podem ser alterados sem ordem explicita.
+- develop: branch canônica de desenvolvimento.
+- master: branch canônica de release/comparação.
+- forward-only: política canônica de histórico sem reescrita destrutiva.
+- escopo fechado: conjunto explícito e verificável do que foi pedido em uma tarefa.
+- nomes canônicos: nomes oficiais que não podem ser alterados sem ordem explícita.
 
-## Modulos e Servicos
+## Módulos e Serviços
 
-- .copilot: modulo de memoria isolada do sistema.
-- .copilot/memory: raiz canonica da memoria operacional.
-- context: modulo de contexto e regras de execucao.
-- decisions: modulo de registro de decisoes.
-- patterns: modulo de padroes e nomenclatura.
-- runbooks: modulo de procedimentos operacionais.
-- templates: modulo de modelos reutilizaveis.
-- maps: modulo de mapas de conteudo do vault.
-- notes: modulo de notas operacionais.
+- .copilot: módulo de memória isolada do sistema.
+- .copilot/memory: raiz canônica da memória operacional.
+- context: módulo de contexto e regras de execução.
+- decisions: módulo de registro de decisões.
+- patterns: módulo de padrões e nomenclatura.
+- runbooks: módulo de procedimentos operacionais.
+- templates: módulo de modelos reutilizáveis.
+- maps: módulo de mapas de conteúdo do vault.
+- notes: módulo de notas operacionais.
 
 ## Eventos e Contratos
 
-- STRICT_MODE: contrato operacional que impede deriva de escopo e renomeacoes indevidas.
-- EXECUTION_CHECKLIST: contrato minimo de verificacao antes de editar e antes de entregar.
-- TASK_BRIEF_TEMPLATE: contrato base para formalizar pedido, escopo, proibicoes e criterio de pronto.
-- AUTOMATION_BLUEPRINT: contrato de governanca para propor agentes, skills e tools antes de criar.
+- STRICT_MODE: contrato operacional que impede deriva de escopo e renomeações indevidas.
+- EXECUTION_CHECKLIST: contrato mínimo de verificação antes de editar e antes de entregar.
+- TASK_BRIEF_TEMPLATE: contrato base para formalizar pedido, escopo, proibições e critério de pronto.
+- AUTOMATION_BLUEPRINT: contrato de governança para propor agentes, skills e tools antes de criar.
 
 ## Regra
 
-- Se o nome nao estiver definido aqui, o nome atual no codigo e o canonico temporario.
+- Se o nome não estiver definido aqui, o nome atual no código é o canônico temporário.
 - Se surgir novo nome recorrente, registrar aqui antes de renomear ou generalizar.

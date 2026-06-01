@@ -10,14 +10,14 @@
 - Objetivo 2:
 - Objetivo 3:
 
-## Nao Fazer
+## Não Fazer
 
-- (listar proibicoes explicitas desta tarefa)
+- (listar proibições explícitas desta tarefa)
 
 ## Nomes Canonicos Impactados
 
-- (listar nomes que nao podem ser alterados)
+- (listar nomes que não podem ser alterados)
 
-## Criterio de Pronto
+## Critério de Pronto
 
 - (como validar que concluiu sem desvio)

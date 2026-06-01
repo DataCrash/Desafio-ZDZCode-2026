@@ -1,0 +1,195 @@
+{
+    "epic": {
+        "title": "Entrega do Desafio Técnico ZDZCode 2026",
+        "body": "Planejar, implementar e validar uma solução full stack de gestão de catálogo (categorias e produtos), aderente aos critérios do PDF e pronta para submissão.",
+        "labels": [
+            "type:feature",
+            "priority:P0",
+            "critical:eliminatorio",
+            "phase:0-alignment",
+            "area:docs"
+        ],
+        "milestone": "Fase 0 - Alinhamento e Escopo"
+    },
+    "issues": [
+        {
+            "title": "Definir escopo fechado do desafio",
+            "body": "## Contexto\nConsolida o escopo técnico e funcional do desafio para evitar deriva.\n\n## Objetivo\nFormalizar escopo fechado com critérios de pronto por fase.\n\n## Critérios de aceite\n- [ ] Escopo fechado documentado\n- [ ] Critérios críticos do PDF listados\n- [ ] Definição de fora de escopo registrada\n\n## Evidência esperada\nArquivo BluePrint atualizado e rastreável.",
+            "labels": [
+                "area:docs",
+                "type:feature",
+                "priority:P0",
+                "phase:0-alignment",
+                "critical:eliminatorio"
+            ],
+            "milestone": "Fase 0 - Alinhamento e Escopo"
+        },
+        {
+            "title": "Estruturar solução backend .NET",
+            "body": "## Contexto\nCriar fundação da API para suportar CRUD e regras do desafio.\n\n## Objetivo\nEstruturar projeto .NET com organização base para domínio e persistência.\n\n## Critérios de aceite\n- [ ] Projeto API criado\n- [ ] Estrutura de pastas definida\n- [ ] Configuração inicial funcional",
+            "labels": [
+                "area:backend",
+                "type:feature",
+                "priority:P0",
+                "phase:1-architecture"
+            ],
+            "milestone": "Fase 1 - Arquitetura Base"
+        },
+        {
+            "title": "Modelar entidades Categoria e Produto",
+            "body": "## Contexto\nModelagem é base para integridade referencial do desafio.\n\n## Objetivo\nCriar entidades e relacionamento 1:N com campos obrigatórios.\n\n## Critérios de aceite\n- [ ] Entidades Categoria e Produto criadas\n- [ ] Relacionamento 1:N configurado\n- [ ] FK explícita definida",
+            "labels": [
+                "area:db",
+                "type:feature",
+                "priority:P0",
+                "phase:2-backend",
+                "critical:eliminatorio"
+            ],
+            "milestone": "Fase 2 - Backend"
+        },
+        {
+            "title": "Configurar EF Core com banco relacional real",
+            "body": "## Contexto\nEF Core com banco real é obrigatório no desafio.\n\n## Objetivo\nConfigurar DbContext e provider relacional com migrations.\n\n## Critérios de aceite\n- [ ] Banco relacional configurado\n- [ ] Migrations aplicáveis\n- [ ] Sem EF InMemory",
+            "labels": [
+                "area:backend",
+                "type:feature",
+                "priority:P0",
+                "phase:2-backend",
+                "critical:eliminatorio"
+            ],
+            "milestone": "Fase 2 - Backend"
+        },
+        {
+            "title": "Implementar endpoints de categorias",
+            "body": "## Objetivo\nEntregar CRUD de categorias conforme contrato da API.",
+            "labels": [
+                "area:backend",
+                "type:feature",
+                "priority:P0",
+                "phase:2-backend"
+            ],
+            "milestone": "Fase 2 - Backend"
+        },
+        {
+            "title": "Implementar endpoints de produtos com Include de categoria",
+            "body": "## Objetivo\nEntregar CRUD de produtos com retorno de categoria vinculada.",
+            "labels": [
+                "area:backend",
+                "type:feature",
+                "priority:P0",
+                "phase:2-backend",
+                "critical:eliminatorio"
+            ],
+            "milestone": "Fase 2 - Backend"
+        },
+        {
+            "title": "Implementar regra de bloqueio na exclusão de categorias vinculadas",
+            "body": "## Objetivo\nBloquear exclusão de categoria com produtos vinculados e retornar erro apropriado.",
+            "labels": [
+                "area:backend",
+                "type:feature",
+                "priority:P0",
+                "phase:2-backend",
+                "critical:eliminatorio"
+            ],
+            "milestone": "Fase 2 - Backend"
+        },
+        {
+            "title": "Configurar CORS restritivo para frontend Nuxt",
+            "body": "## Objetivo\nPermitir apenas origem do frontend e evitar AllowAnyOrigin.",
+            "labels": [
+                "area:backend",
+                "type:feature",
+                "priority:P0",
+                "phase:2-backend",
+                "critical:eliminatorio"
+            ],
+            "milestone": "Fase 2 - Backend"
+        },
+        {
+            "title": "Inicializar aplicação Nuxt 3",
+            "body": "## Objetivo\nCriar base do frontend com rotas e estrutura inicial.",
+            "labels": [
+                "area:frontend",
+                "type:feature",
+                "priority:P0",
+                "phase:1-architecture"
+            ],
+            "milestone": "Fase 1 - Arquitetura Base"
+        },
+        {
+            "title": "Criar página de categorias com grid e ações",
+            "body": "## Objetivo\nEntregar listagem de categorias com ações de editar e excluir.",
+            "labels": [
+                "area:frontend",
+                "type:feature",
+                "priority:P0",
+                "phase:3-frontend"
+            ],
+            "milestone": "Fase 3 - Frontend"
+        },
+        {
+            "title": "Criar página de produtos com grid e select de categorias",
+            "body": "## Objetivo\nEntregar listagem de produtos com seleção de categoria carregada da API.",
+            "labels": [
+                "area:frontend",
+                "type:feature",
+                "priority:P0",
+                "phase:3-frontend"
+            ],
+            "milestone": "Fase 3 - Frontend"
+        },
+        {
+            "title": "Implementar fluxo de edição e exclusão sem refresh",
+            "body": "## Objetivo\nGarantir atualização reativa da UI após operações de edição e exclusão.",
+            "labels": [
+                "area:frontend",
+                "type:feature",
+                "priority:P0",
+                "phase:3-frontend",
+                "critical:eliminatorio"
+            ],
+            "milestone": "Fase 3 - Frontend"
+        },
+        {
+            "title": "Implementar validação visual de nome mínimo",
+            "body": "## Objetivo\nBloquear ação de salvar com nome inválido no frontend.",
+            "labels": [
+                "area:frontend",
+                "type:feature",
+                "priority:P1",
+                "phase:3-frontend"
+            ],
+            "milestone": "Fase 3 - Frontend"
+        },
+        {
+            "title": "Implementar tratamento visual de erro de integridade",
+            "body": "## Objetivo\nExibir mensagem amigável quando regra de integridade impedir exclusão.",
+            "labels": [
+                "area:frontend",
+                "type:feature",
+                "priority:P1",
+                "phase:3-frontend"
+            ],
+            "milestone": "Fase 3 - Frontend"
+        },
+        {
+            "title": "Documentar setup, migrations e payloads no README",
+            "body": "## Objetivo\nDeixar guia reproduzível para execução local e validação do desafio.",
+            "labels": [ "area:docs", "type:docs", "priority:P0", "phase:4-quality" ],
+            "milestone": "Fase 4 - Qualidade e Evidências"
+        },
+        {
+            "title": "Validar critérios de aceite do PDF",
+            "body": "## Objetivo\nExecutar checklist de conformidade final com critérios obrigatórios do desafio.",
+            "labels": [
+                "area:qa",
+                "type:test",
+                "priority:P0",
+                "phase:4-quality",
+                "critical:eliminatorio"
+            ],
+            "milestone": "Fase 4 - Qualidade e Evidências"
+        }
+    ]
+}

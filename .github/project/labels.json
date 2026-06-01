@@ -1,0 +1,121 @@
+[
+    {
+        "name": "area:backend",
+        "color": "0e8a16",
+        "description": "Cards da API e regras de negócio"
+    },
+    {
+        "name": "area:frontend",
+        "color": "1d76db",
+        "description": "Cards da interface Nuxt"
+    },
+    {
+        "name": "area:db",
+        "color": "5319e7",
+        "description": "Modelagem e migrações de banco"
+    },
+    {
+        "name": "area:docs",
+        "color": "0052cc",
+        "description": "Documentação e guias"
+    },
+    {
+        "name": "area:qa",
+        "color": "fbca04",
+        "description": "Validação e critérios de aceite"
+    },
+    {
+        "name": "area:devops",
+        "color": "c2e0c6",
+        "description": "Automação, scripts e infraestrutura"
+    },
+
+    {
+        "name": "type:feature",
+        "color": "a2eeef",
+        "description": "Nova entrega funcional"
+    },
+    {
+        "name": "type:bug",
+        "color": "d73a4a",
+        "description": "Correção de defeito"
+    },
+    {
+        "name": "type:chore",
+        "color": "bfd4f2",
+        "description": "Ajuste técnico sem funcionalidade"
+    },
+    {
+        "name": "type:docs",
+        "color": "0075ca",
+        "description": "Mudança em documentação"
+    },
+    {
+        "name": "type:test",
+        "color": "f9d0c4",
+        "description": "Validação e testes"
+    },
+
+    {
+        "name": "priority:P0",
+        "color": "b60205",
+        "description": "Prioridade máxima"
+    },
+    {
+        "name": "priority:P1",
+        "color": "d93f0b",
+        "description": "Prioridade alta"
+    },
+    {
+        "name": "priority:P2",
+        "color": "fbca04",
+        "description": "Prioridade normal"
+    },
+
+    {
+        "name": "critical:eliminatorio",
+        "color": "b60205",
+        "description": "Critério eliminatório do desafio"
+    },
+    {
+        "name": "critical:importante",
+        "color": "d93f0b",
+        "description": "Critério importante"
+    },
+    {
+        "name": "critical:diferencial",
+        "color": "0e8a16",
+        "description": "Critério diferencial"
+    },
+
+    {
+        "name": "phase:0-alignment",
+        "color": "c5def5",
+        "description": "Fase 0 - Alinhamento"
+    },
+    {
+        "name": "phase:1-architecture",
+        "color": "bfdadc",
+        "description": "Fase 1 - Arquitetura"
+    },
+    {
+        "name": "phase:2-backend",
+        "color": "d4c5f9",
+        "description": "Fase 2 - Backend"
+    },
+    {
+        "name": "phase:3-frontend",
+        "color": "fef2c0",
+        "description": "Fase 3 - Frontend"
+    },
+    {
+        "name": "phase:4-quality",
+        "color": "c2e0c6",
+        "description": "Fase 4 - Qualidade"
+    },
+    {
+        "name": "phase:5-delivery",
+        "color": "f9d0c4",
+        "description": "Fase 5 - Entrega"
+    }
+]

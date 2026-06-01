@@ -10,7 +10,7 @@
 - Objetivo 2:
 - Objetivo 3:
 
-## Nao Fazer
+## Não Fazer
 
 -
 
@@ -20,6 +20,6 @@
 
 ## Checklist
 
-- [ ] Pre-execucao
-- [ ] Execucao
+- [ ] Pre-execução
+- [ ] Execução
 - [ ] Pre-entrega

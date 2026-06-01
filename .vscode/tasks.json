@@ -6,56 +6,77 @@
       "type": "shell",
       "command": "git status -sb",
       "group": "test",
-      "problemMatcher": []
+      "problemMatcher": [ ]
     },
     {
       "label": "Placeholder: lint",
       "type": "shell",
-      "command": "echo 'Configure lint command per stack'",
+      "command": "cd src/frontend/app && npm run typecheck && cd ../../.. && dotnet build src/backend/ZDZCode.Api/ZDZCode.Api.csproj -nologo",
       "group": "build",
-      "problemMatcher": []
+      "problemMatcher": [ ]
     },
     {
       "label": "Placeholder: test",
       "type": "shell",
-      "command": "echo 'Configure test command per stack'",
+      "command": "dotnet test src/backend/ZDZCode.Api/ZDZCode.Api.csproj -nologo --no-build",
       "group": "test",
-      "problemMatcher": []
+      "problemMatcher": [ ]
     },
     {
       "label": "Playwright: codegen",
       "type": "shell",
       "command": "npx playwright codegen",
       "group": "test",
-      "problemMatcher": []
+      "problemMatcher": [ ]
     },
     {
       "label": "Playwright: install browsers",
       "type": "shell",
       "command": "npx playwright install",
       "group": "build",
-      "problemMatcher": []
+      "problemMatcher": [ ]
     },
     {
       "label": "Playwright: test",
       "type": "shell",
       "command": "npx playwright test",
       "group": "test",
-      "problemMatcher": []
+      "problemMatcher": [ ]
     },
     {
       "label": "Playwright: test ui",
       "type": "shell",
       "command": "npx playwright test --ui",
       "group": "test",
-      "problemMatcher": []
+      "problemMatcher": [ ]
     },
     {
       "label": "Sanity: list root",
       "type": "shell",
       "command": "ls -la",
       "group": "test",
-      "problemMatcher": []
+      "problemMatcher": [ ]
+    },
+    {
+      "label": "Agent: Flow Guard",
+      "type": "shell",
+      "command": "./scripts/agents/flow_guard.sh",
+      "group": "test",
+      "problemMatcher": [ ]
+    },
+    {
+      "label": "Agent: Board Ops",
+      "type": "shell",
+      "command": "GH_OWNER=\"DataCrash\" GH_REPO=\"Desafio-ZDZCode-2026\" BOARD_TITLE=\"Board Desafio ZDZCode 2026\" ./scripts/agents/board_ops.sh",
+      "group": "build",
+      "problemMatcher": [ ]
+    },
+    {
+      "label": "Agent: Delivery Prep",
+      "type": "shell",
+      "command": "GH_OWNER=\"DataCrash\" GH_REPO=\"Desafio-ZDZCode-2026\" BOARD_TITLE=\"Board Desafio ZDZCode 2026\" ./scripts/agents/delivery_prep.sh",
+      "group": "test",
+      "problemMatcher": [ ]
     }
   ]
 }

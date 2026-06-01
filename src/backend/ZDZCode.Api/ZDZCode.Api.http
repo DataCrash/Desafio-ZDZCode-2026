@@ -1,0 +1,33 @@
+@ZDZCode.Api_HostAddress = http://localhost:5286
+
+GET {{ZDZCode.Api_HostAddress}}/api/categorias
+Accept: application/json
+
+###
+
+POST {{ZDZCode.Api_HostAddress}}/api/categorias
+Content-Type: application/json
+
+{
+	"name": "Bebidas Frias",
+	"description": "Itens gelados"
+}
+
+###
+
+GET {{ZDZCode.Api_HostAddress}}/api/produtos
+Accept: application/json
+
+###
+
+POST {{ZDZCode.Api_HostAddress}}/api/produtos
+Content-Type: application/json
+
+{
+	"name": "Refrigerante Cola 2L",
+	"description": "Garrafa pet",
+	"price": 12.5,
+	"categoryId": 1
+}
+
+###

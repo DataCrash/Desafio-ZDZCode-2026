@@ -1,4 +1,4 @@
-# Indice de Memoria
+# Índice de Memória
 
 ## Contexto
 
@@ -6,11 +6,11 @@
 - context/STRICT_MODE.md
 - MOC_HOME.md
 
-## Decisoes
+## Decisões
 
 - decisions/README.md
 
-## Padroes
+## Padrões
 
 - patterns/README.md
 - patterns/CANONICAL_GLOSSARY.md
@@ -41,15 +41,17 @@
 
 - notes/ACTIVE_TASK.md
 - notes/INBOX.md
+- notes/ZDZ_VAGA_ANALISE.md
+- notes/ZDZ_DESAFIO_PDF_ANALISE.md
 
-## Automacao
+## Automação
 
 - AUTOMATION_BLUEPRINT.md
 
-## Convencao de registro
+## Convenção de registro
 
 - Data (YYYY-MM-DD)
-- Titulo curto
-- Motivacao
-- Decisao ou acao
+- Título curto
+- Motivação
+- Decisão ou ação
 - Impacto

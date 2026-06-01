@@ -1,3 +1,3 @@
-# Mapa de Decisoes
+# Mapa de Decisões
 
-- [[../decisions/README|Registro de Decisoes]]
+- [[../decisions/README|Registro de Decisões]]

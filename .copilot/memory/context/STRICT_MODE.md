@@ -1,24 +1,24 @@
-# Modo Estrito de Execucao
+# Modo Estrito de Execução
 
-Objetivo: evitar desvio de escopo, renomeacoes indevidas e repeticao de instrucoes ja definidas.
+Objetivo: evitar desvio de escopo, renomeações indevidas e repetição de instruções já definidas.
 
-## Regras Imutaveis
+## Regras Imutáveis
 
-- Nao alterar nomes canonicos (variavel, entidade, arquivo, contrato) sem pedido explicito.
-- Nao criar redundancia funcional sem justificativa e aprovacao.
-- Nao executar tarefas fora do escopo pedido.
-- Nao incluir alteracoes cosmeticas sem impacto funcional solicitado.
-- Nao fazer commit com erro conhecido.
-- Respostas curtas por padrao; detalhamento apenas sob solicitacao.
+- Não alterar nomes canônicos (variável, entidade, arquivo, contrato) sem pedido explícito.
+- Não criar redundância funcional sem justificativa e aprovação.
+- Não executar tarefas fora do escopo pedido.
+- Não incluir alterações cosméticas sem impacto funcional solicitado.
+- Não fazer commit com erro conhecido.
+- Respostas curtas por padrão; detalhamento apenas sob solicitação.
 
 ## Politica de Escopo
 
-- Escopo da tarefa deve caber em 1 a 5 objetivos verificaveis.
-- Tudo que nao estiver no objetivo e considerado fora de escopo.
-- Sugestoes extras devem ficar em bloco opcional e curto, nunca misturadas na execucao.
+- Escopo da tarefa deve caber em 1 a 5 objetivos verificáveis.
+- Tudo que não estiver no objetivo é considerado fora de escopo.
+- Sugestoes extras devem ficar em bloco opcional e curto, nunca misturadas na execução.
 
 ## Protocolo de Nomenclatura
 
-- Antes de renomear: verificar glossario canonico.
-- Se nao houver entrada no glossario: manter nome atual.
-- Se houver conflito: registrar decisao antes de alterar.
+- Antes de renomear: verificar glossário canônico.
+- Se não houver entrada no glossário: manter nome atual.
+- Se houver conflito: registrar decisão antes de alterar.

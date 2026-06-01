@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Fase 0 - Alinhamento e Escopo",
+        "description": "Congelar escopo, contrato e critérios de pronto.",
+        "state": "open"
+    },
+    {
+        "title": "Fase 1 - Arquitetura Base",
+        "description": "Definir fundação técnica backend/frontend.",
+        "state": "open"
+    },
+    {
+        "title": "Fase 2 - Backend",
+        "description": "Entregar API, validações, migrations e CORS.",
+        "state": "open"
+    },
+    {
+        "title": "Fase 3 - Frontend",
+        "description": "Entregar grid reativo, CRUD e UX exigida.",
+        "state": "open"
+    },
+    {
+        "title": "Fase 4 - Qualidade e Evidências",
+        "description": "Validar ACs, README e rastreabilidade.",
+        "state": "open"
+    },
+    {
+        "title": "Fase 5 - Entrega Final",
+        "description": "Empacotar submissão com narrativa forte.",
+        "state": "open"
+    }
+]

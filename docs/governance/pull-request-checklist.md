@@ -1,8 +1,8 @@
 # Checklist de Pull Request
 
-- Mudanca pequena e focada
-- Build/lint/test locais ok (quando aplicavel)
-- Sem segredos no codigo
-- Atualizacao de docs necessaria foi feita
-- Titulos e descricao claros
+- Mudança pequena e focada
+- Build/lint/test locais ok (quando aplicável)
+- Sem segredos no código
+- Atualização de docs necessária foi feita
+- Títulos e descrição claros
 - Impacto e risco descritos
