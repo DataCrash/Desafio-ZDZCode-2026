@@ -21,6 +21,16 @@ Implementação full stack do desafio técnico ZDZCode 2026.
 - `src/frontend/app`: interface Nuxt com páginas `/categorias` e `/produtos`
 - `scripts/agents`: agentes operacionais (Flow Guard, Board Ops, Delivery Prep)
 
+## Modelo de dominio aprovado (permanente)
+
+O modelo oficial de entidades e relacionamentos contemplado pelo sistema esta documentado em:
+
+- `docs/operations/domain-model-approved.md`
+
+Planejamento detalhado de implementacao da fase complementar:
+
+- `docs/operations/execution-plan-complementar.md`
+
 ## Backend - executar localmente
 
 ```bash

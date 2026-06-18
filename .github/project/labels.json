@@ -20,6 +20,11 @@
         "description": "Documentação e guias"
     },
     {
+        "name": "area:ux",
+        "color": "6f42c1",
+        "description": "Identidade visual, esboços e comportamento do frontend"
+    },
+    {
         "name": "area:qa",
         "color": "fbca04",
         "description": "Validação e critérios de aceite"
@@ -94,9 +99,19 @@
         "description": "Fase 0 - Alinhamento"
     },
     {
+        "name": "phase:0-ux",
+        "color": "c5def5",
+        "description": "Fase 0.1 - UX e Identidade Visual"
+    },
+    {
         "name": "phase:1-architecture",
         "color": "bfdadc",
         "description": "Fase 1 - Arquitetura"
+    },
+    {
+        "name": "phase:1-backend-foundation",
+        "color": "bfdadc",
+        "description": "Fase 1 - Fundacao Backend"
     },
     {
         "name": "phase:2-backend",
@@ -104,14 +119,39 @@
         "description": "Fase 2 - Backend"
     },
     {
+        "name": "phase:2-api-catalog",
+        "color": "d4c5f9",
+        "description": "Fase 2 - API de Catalogo e Cadastros"
+    },
+    {
+        "name": "phase:3-api-transactional",
+        "color": "fef2c0",
+        "description": "Fase 3 - API Transacional"
+    },
+    {
         "name": "phase:3-frontend",
         "color": "fef2c0",
         "description": "Fase 3 - Frontend"
     },
     {
+        "name": "phase:4-frontend-catalog",
+        "color": "fef2c0",
+        "description": "Fase 4 - Frontend de Catalogo"
+    },
+    {
+        "name": "phase:5-frontend-transactional",
+        "color": "fef2c0",
+        "description": "Fase 5 - Frontend Transacional"
+    },
+    {
         "name": "phase:4-quality",
         "color": "c2e0c6",
         "description": "Fase 4 - Qualidade"
+    },
+    {
+        "name": "phase:6-quality",
+        "color": "c2e0c6",
+        "description": "Fase 6 - Qualidade, Evidencias e Entrega"
     },
     {
         "name": "phase:5-delivery",
