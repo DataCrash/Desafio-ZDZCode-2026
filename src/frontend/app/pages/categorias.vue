@@ -16,6 +16,7 @@ const apiBase = config.public.apiBase as string;
 const categories = ref<Category[]>([]);
 const loading = ref(false);
 const errorMessage = ref("");
+const errorType = ref<"validation" | "conflict" | "server" | null>(null);
 
 const createForm = reactive<CategoryPayload>({
   name: "",
@@ -30,14 +31,19 @@ const editForm = reactive<CategoryPayload>({
 
 const isCreateValid = computed(() => createForm.name.trim().length >= 5);
 const isEditValid = computed(() => editForm.name.trim().length >= 5);
+const hasCreateError = computed(
+  () => createForm.name.trim().length > 0 && !isCreateValid.value,
+);
 
 async function loadCategories() {
   loading.value = true;
   errorMessage.value = "";
+  errorType.value = null;
   try {
     categories.value = await $fetch<Category[]>(`${apiBase}/api/categorias`);
-  } catch {
-    errorMessage.value = "Failed to load categories.";
+  } catch (error: any) {
+    errorMessage.value = "Nao foi possivel carregar categorias.";
+    errorType.value = "server";
   } finally {
     loading.value = false;
   }
@@ -47,6 +53,7 @@ async function createCategory() {
   if (!isCreateValid.value) return;
 
   errorMessage.value = "";
+  errorType.value = null;
   try {
     const created = await $fetch<Category>(`${apiBase}/api/categorias`, {
       method: "POST",
@@ -59,8 +66,10 @@ async function createCategory() {
     categories.value = [...categories.value, created];
     createForm.name = "";
     createForm.description = null;
-  } catch {
-    errorMessage.value = "Failed to create category.";
+  } catch (error: any) {
+    const statusCode = error?.statusCode || error?.response?.status;
+    errorMessage.value = error?.data?.message || "Falha ao criar categoria.";
+    errorType.value = statusCode === 409 ? "conflict" : "server";
   }
 }
 
@@ -74,12 +83,15 @@ function cancelEdit() {
   editingId.value = null;
   editForm.name = "";
   editForm.description = null;
+  errorMessage.value = "";
+  errorType.value = null;
 }
 
 async function saveEdit(id: number) {
   if (!isEditValid.value) return;
 
   errorMessage.value = "";
+  errorType.value = null;
   try {
     const updated = await $fetch<Category>(`${apiBase}/api/categorias/${id}`, {
       method: "PUT",
@@ -93,28 +105,34 @@ async function saveEdit(id: number) {
       item.id === id ? updated : item,
     );
     cancelEdit();
-  } catch {
-    errorMessage.value = "Failed to update category.";
+  } catch (error: any) {
+    const statusCode = error?.statusCode || error?.response?.status;
+    errorMessage.value =
+      error?.data?.message || "Falha ao atualizar categoria.";
+    errorType.value = statusCode === 409 ? "conflict" : "server";
   }
 }
 
 async function removeCategory(id: number) {
-  if (!confirm("Are you sure you want to delete this category?")) return;
+  if (!confirm("Tem certeza que deseja excluir esta categoria?")) return;
 
   errorMessage.value = "";
+  errorType.value = null;
   try {
     await $fetch(`${apiBase}/api/categorias/${id}`, { method: "DELETE" });
     categories.value = categories.value.filter((item) => item.id !== id);
   } catch (error: any) {
     const statusCode = error?.statusCode || error?.response?.status;
-    const backendMessage = error?.data?.message;
+
     if (statusCode === 409) {
       errorMessage.value =
-        "It is not possible to delete a category with linked products.";
+        "Nao eh possivel excluir uma categoria com produtos vinculados.";
+      errorType.value = "conflict";
       return;
     }
 
-    errorMessage.value = backendMessage || "Failed to delete category.";
+    errorMessage.value = error?.data?.message || "Falha ao excluir categoria.";
+    errorType.value = "server";
   }
 }
 
@@ -124,45 +142,66 @@ onMounted(loadCategories);
 <template>
   <section class="screen">
     <header class="screen-header">
-      <h1>Categories</h1>
-      <p>Manage category records used by products.</p>
+      <h1>Categorias</h1>
+      <p>Gerencie os registros de categorias usados pelos produtos.</p>
     </header>
 
     <div class="neo-card form-card">
-      <h2>Create category</h2>
+      <h2>Criar nova categoria</h2>
       <div class="form-grid">
-        <input
-          v-model="createForm.name"
-          class="neo-input"
-          placeholder="Name (min 5)"
-        />
+        <div class="form-field">
+          <input
+            v-model="createForm.name"
+            class="neo-input"
+            :class="{ 'input-error': hasCreateError }"
+            placeholder="Nome (mínimo 5 caracteres)"
+            aria-label="Nome da categoria"
+            aria-invalid="false"
+          />
+          <span v-if="hasCreateError" class="field-hint error">
+            Mínimo 5 caracteres
+          </span>
+        </div>
         <input
           v-model="createForm.description"
           class="neo-input"
-          placeholder="Description"
+          placeholder="Descrição (opcional)"
+          aria-label="Descrição da categoria"
         />
         <button
           class="neo-button primary"
           :disabled="!isCreateValid"
           @click="createCategory"
+          aria-label="Salvar nova categoria"
         >
-          Save
+          Salvar
         </button>
       </div>
     </div>
 
-    <p v-if="errorMessage" class="neo-alert danger">{{ errorMessage }}</p>
-    <p v-if="loading" class="loading-note">Loading categories...</p>
+    <div
+      v-if="errorMessage"
+      :class="['neo-alert', errorType === 'conflict' ? 'warning' : 'danger']"
+      role="alert"
+    >
+      <strong>{{ errorType === "conflict" ? "Aviso" : "Erro" }}:</strong>
+      {{ errorMessage }}
+    </div>
+
+    <div v-if="loading" class="loading-state" role="status" aria-live="polite">
+      <div class="spinner"></div>
+      <p>Carregando categorias...</p>
+    </div>
 
     <div class="neo-card table-card" v-if="!loading">
       <div class="table-wrap" v-if="categories.length > 0">
-        <table>
+        <table role="grid">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Actions</th>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -180,14 +219,19 @@ onMounted(loadCategories);
               </td>
               <td class="actions">
                 <template v-if="editingId !== item.id">
-                  <button class="neo-button ghost" @click="startEdit(item)">
-                    Edit
+                  <button
+                    class="neo-button ghost"
+                    @click="startEdit(item)"
+                    aria-label="Editar categoria"
+                  >
+                    Editar
                   </button>
                   <button
                     class="neo-button ghost danger"
                     @click="removeCategory(item.id)"
+                    aria-label="Excluir categoria"
                   >
-                    Delete
+                    Excluir
                   </button>
                 </template>
                 <template v-else>
@@ -195,11 +239,16 @@ onMounted(loadCategories);
                     class="neo-button primary"
                     :disabled="!isEditValid"
                     @click="saveEdit(item.id)"
+                    aria-label="Salvar edição"
                   >
-                    Save
+                    Salvar
                   </button>
-                  <button class="neo-button ghost" @click="cancelEdit">
-                    Cancel
+                  <button
+                    class="neo-button ghost"
+                    @click="cancelEdit"
+                    aria-label="Cancelar edição"
+                  >
+                    Cancelar
                   </button>
                 </template>
               </td>
@@ -209,8 +258,9 @@ onMounted(loadCategories);
       </div>
 
       <div v-else class="empty-state">
-        <strong>No categories yet</strong>
-        <p>Create your first category to start linking products.</p>
+        <div class="empty-icon">📦</div>
+        <strong>Nenhuma categoria ainda</strong>
+        <p>Crie sua primeira categoria para começar a vincular produtos.</p>
       </div>
     </div>
   </section>
@@ -393,9 +443,119 @@ tbody tr:hover {
   margin: 0.35rem 0 0;
 }
 
-@media (max-width: 920px) {
+.form-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field-hint {
+  font-size: 0.75rem;
+  padding-left: 0.5rem;
+}
+
+.field-hint.error {
+  color: var(--danger);
+}
+
+.neo-input.input-error {
+  border-color: var(--danger);
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  color: var(--text-soft);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.neo-alert.warning {
+  border-color: color-mix(in srgb, var(--warning) 35%, var(--line));
+  color: var(--warning);
+  background: color-mix(in srgb, var(--warning) 12%, transparent);
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state strong {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--text);
+}
+
+.form-grid {
+  grid-template-columns: 1.5fr 1fr auto;
+}
+
+.table-wrap {
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  min-width: 600px;
+}
+
+.id-col {
+  font-size: 0.875rem;
+}
+
+.actions {
+  flex-wrap: wrap;
+}
+
+.empty-state {
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 1024px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr auto;
+  }
+}
+
+@media (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-grid button {
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.875rem;
+  }
+
+  .neo-button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.875rem;
+  }
+
+  .actions {
+    gap: 0.2rem;
   }
 }
 </style>

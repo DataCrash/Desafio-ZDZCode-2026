@@ -72,8 +72,9 @@ async function loadData() {
     customers.value = customerResult;
     products.value = productResult;
     orders.value = orderResult;
-    if (!selectedOrderId.value && orderResult.length > 0) {
-      selectedOrderId.value = orderResult[0].id;
+    const firstOrder = orderResult[0];
+    if (!selectedOrderId.value && firstOrder) {
+      selectedOrderId.value = firstOrder.id;
     }
   } catch {
     errorMessage.value = "Falha ao carregar dados de pedidos.";
