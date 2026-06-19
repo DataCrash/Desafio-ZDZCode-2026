@@ -1,32 +1,42 @@
 [
     {
-        "title": "Fase 0 - Alinhamento e Escopo",
-        "description": "Congelar escopo, contrato e critérios de pronto.",
+        "title": "Fase 0 - Modelagem e Governanca",
+        "description": "Registrar o modelo aprovado e as regras de processo.",
         "state": "open"
     },
     {
-        "title": "Fase 1 - Arquitetura Base",
-        "description": "Definir fundação técnica backend/frontend.",
+        "title": "Fase 0.1 - UX e Identidade Visual",
+        "description": "Definir identidade visual, esboços e comportamento padrao.",
         "state": "open"
     },
     {
-        "title": "Fase 2 - Backend",
-        "description": "Entregar API, validações, migrations e CORS.",
+        "title": "Fase 1 - Fundacao Backend",
+        "description": "Estruturar entidades, mapeamentos e migration inicial.",
         "state": "open"
     },
     {
-        "title": "Fase 3 - Frontend",
-        "description": "Entregar grid reativo, CRUD e UX exigida.",
+        "title": "Fase 2 - API de Catalogo e Cadastros",
+        "description": "Entregar CRUD de base para catalogo e cadastros auxiliares.",
         "state": "open"
     },
     {
-        "title": "Fase 4 - Qualidade e Evidências",
-        "description": "Validar ACs, README e rastreabilidade.",
+        "title": "Fase 3 - API Transacional",
+        "description": "Entregar pedidos, pagamentos e movimentações de estoque.",
         "state": "open"
     },
     {
-        "title": "Fase 5 - Entrega Final",
-        "description": "Empacotar submissão com narrativa forte.",
+        "title": "Fase 4 - Frontend de Catalogo",
+        "description": "Aplicar identidade visual e robustez nas telas de catalogo.",
+        "state": "open"
+    },
+    {
+        "title": "Fase 5 - Frontend Transacional",
+        "description": "Entregar jornadas de clientes, pedidos, pagamentos e estoque.",
+        "state": "open"
+    },
+    {
+        "title": "Fase 6 - Qualidade e Entrega",
+        "description": "Validar build, cold start, evidências e documentação final.",
         "state": "open"
     }
 ]

@@ -2,14 +2,18 @@
 
 ## Status geral
 
-- Situação do desafio: **concluído**.
-- Repositório de issues: **Open (0)** e **Closed (17)**.
-- Fluxo de execução ativo no board: **In Progress (0)**.
+- Situação atual: **Fases 4 e 5 concluídas; Fase 6 em andamento**.
+- Issues de fase validadas no GitHub:
+	- `#23` (Fase 5): **closed**
+	- `#24` (Fase 4): **closed**
+	- `#25` (Fase 6): **open**
+- Último avanço técnico publicado em `develop`: commit `b634046`.
 
 ## Entrega técnica
 
 - Backend entregue com ASP.NET Core + EF Core + SQLite.
 - Frontend entregue com Nuxt + Vue, com CRUD reativo para categorias e produtos.
+- Frontend de catálogo reforçado com UX robusta (tratamento de erros, loading, acessibilidade e responsividade).
 - Contrato de endpoints implementado para `categorias` e `produtos`.
 - Regras eliminatórias atendidas (banco relacional real, CORS restritivo, sem refresh forçado, regra de integridade, validação de nome >= 5).
 
@@ -21,8 +25,10 @@
 
 ## Validações finais
 
-- Backend: build local validado com sucesso em execução final.
-- Frontend: build validado na rodada anterior e mantido sem regressões de código nesta etapa.
+- Frontend: `npm run typecheck --prefix src/frontend/app` concluído com sucesso (`EXIT:0`).
+- Backend build: `dotnet build src/backend/ZDZCode.Api/ZDZCode.Api.csproj -nologo` concluído com sucesso (`EXIT:0`).
+- Backend teste: `dotnet test src/backend/ZDZCode.Api/ZDZCode.Api.csproj -nologo --no-build` concluído com sucesso (`EXIT:0`).
+- Observação técnica: warning `NU1903` do pacote `SQLitePCLRaw.lib.e_sqlite3` permanece como item conhecido, sem bloquear build/test.
 
 ## Observações operacionais
 
@@ -31,4 +37,4 @@
 
 ## Conclusão
 
-A entrega está pronta para submissão, com rastreabilidade técnica, documentação reproduzível e fechamento do backlog funcional.
+A entrega segue rastreável e tecnicamente estável, com fases de implementação concluídas e a Fase 6 oficialmente em execução para fechamento de evidências e submissão final.

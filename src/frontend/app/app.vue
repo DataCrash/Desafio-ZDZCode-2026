@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+
 type ThemeMode = "light" | "dark";
 
 const THEME_KEY = "zdz-theme";
 
 const theme = ref<ThemeMode>("dark");
 const hasUserPreference = ref(false);
+const isMenuOpen = ref(false);
+const route = useRoute();
 
 function detectSystemTheme(): ThemeMode {
   if (globalThis.window === undefined) return "dark";
@@ -17,6 +21,10 @@ function toggleTheme() {
   theme.value = theme.value === "dark" ? "light" : "dark";
   hasUserPreference.value = true;
   localStorage.setItem(THEME_KEY, theme.value);
+}
+
+function toggleMenu() {
+  isMenuOpen.value = !isMenuOpen.value;
 }
 
 onMounted(() => {
@@ -43,6 +51,13 @@ onMounted(() => {
   media.addListener(onChange);
   onBeforeUnmount(() => media.removeListener(onChange));
 });
+
+watch(
+  () => route.fullPath,
+  () => {
+    isMenuOpen.value = false;
+  },
+);
 </script>
 
 <template>
@@ -54,9 +69,23 @@ onMounted(() => {
         <span class="brand-badge">Neo Clean</span>
       </div>
 
-      <nav class="topbar-nav">
-        <NuxtLink to="/categorias">Categories</NuxtLink>
-        <NuxtLink to="/produtos">Products</NuxtLink>
+      <button
+        class="menu-toggle"
+        type="button"
+        :aria-label="isMenuOpen ? 'Fechar menu' : 'Abrir menu'"
+        :aria-expanded="isMenuOpen"
+        @click="toggleMenu"
+      >
+        <span aria-hidden="true">{{ isMenuOpen ? "✕" : "☰" }}</span>
+      </button>
+
+      <nav class="topbar-nav" :class="{ open: isMenuOpen }">
+        <NuxtLink to="/categorias">Categorias</NuxtLink>
+        <NuxtLink to="/produtos">Produtos</NuxtLink>
+        <NuxtLink to="/clientes">Clientes</NuxtLink>
+        <NuxtLink to="/pedidos">Pedidos</NuxtLink>
+        <NuxtLink to="/pagamentos">Pagamentos</NuxtLink>
+        <NuxtLink to="/estoque">Estoque</NuxtLink>
       </nav>
 
       <button
@@ -157,6 +186,17 @@ body {
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(10px);
   background: color-mix(in srgb, var(--surface) 84%, transparent);
+}
+
+.menu-toggle {
+  display: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface-strong) 82%, transparent);
+  color: var(--text);
+  padding: 0.35rem 0.55rem;
+  font-size: 1.05rem;
+  cursor: pointer;
 }
 
 .brand-wrap {
@@ -265,17 +305,34 @@ body {
 
 @media (max-width: 880px) {
   .topbar {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
   }
 
   .topbar-nav {
-    order: 3;
+    display: none;
+    order: 4;
     width: 100%;
+    grid-column: 1 / -1;
+    flex-direction: column;
+    padding-top: 0.25rem;
+  }
+
+  .topbar-nav.open {
+    display: flex;
   }
 
   .topbar-nav a {
-    flex: 1;
-    text-align: center;
+    width: 100%;
+    text-align: left;
+    border-radius: 10px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

@@ -1,11 +1,11 @@
-@ZDZCode.Api_HostAddress = http://localhost:5286
+@apiHostAddress = http://localhost:5286
 
-GET {{ZDZCode.Api_HostAddress}}/api/categorias
+GET {{apiHostAddress}}/api/categorias
 Accept: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/categorias
+POST {{apiHostAddress}}/api/categorias
 Content-Type: application/json
 
 {
@@ -15,19 +15,129 @@ Content-Type: application/json
 
 ###
 
-GET {{ZDZCode.Api_HostAddress}}/api/produtos
+GET {{apiHostAddress}}/api/produtos
 Accept: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/produtos
+POST {{apiHostAddress}}/api/produtos
 Content-Type: application/json
 
 {
 	"name": "Refrigerante Cola 2L",
 	"description": "Garrafa pet",
+	"sku": "REFRI-COLA-2L",
 	"price": 12.5,
+	"stockCurrent": 50,
+	"isActive": true,
 	"categoryId": 1
 }
+
+###
+
+GET {{apiHostAddress}}/api/clientes
+Accept: application/json
+
+###
+
+POST {{apiHostAddress}}/api/clientes
+Content-Type: application/json
+
+{
+	"name": "Cliente Exemplo",
+	"email": "cliente@example.com",
+	"phone": "11999999999",
+	"isActive": true,
+	"deliveryAddress": {
+		"street": "Rua das Flores",
+		"number": "100",
+		"district": "Centro",
+		"city": "Sao Paulo",
+		"state": "SP",
+		"zipCode": "01000-000",
+		"complement": "Apto 12"
+	}
+}
+
+###
+
+GET {{apiHostAddress}}/api/tags
+Accept: application/json
+
+###
+
+POST {{apiHostAddress}}/api/tags
+Content-Type: application/json
+
+{
+	"name": "Promocao",
+	"isActive": true
+}
+
+###
+
+POST {{apiHostAddress}}/api/tags/1/produtos/1
+
+###
+
+POST {{apiHostAddress}}/api/pedidos
+Content-Type: application/json
+
+{
+	"customerId": 1,
+	"status": "draft",
+	"discountTotal": 0,
+	"note": "Pedido inicial"
+}
+
+###
+
+POST {{apiHostAddress}}/api/pedidos/1/itens
+Content-Type: application/json
+
+{
+	"productId": 1,
+	"quantity": 2
+}
+
+###
+
+GET {{apiHostAddress}}/api/pedidos
+Accept: application/json
+
+###
+
+POST {{apiHostAddress}}/api/pagamentos
+Content-Type: application/json
+
+{
+	"orderId": 1,
+	"method": "pix",
+	"status": "approved",
+	"value": 25,
+	"transactionReference": "PAY-123456"
+}
+
+###
+
+GET {{apiHostAddress}}/api/pagamentos
+Accept: application/json
+
+###
+
+POST {{apiHostAddress}}/api/estoque/movimentacoes
+Content-Type: application/json
+
+{
+	"productId": 1,
+	"movementType": "entrada",
+	"quantity": 10,
+	"reason": "Reposicao de estoque"
+}
+
+###
+
+GET {{apiHostAddress}}/api/estoque/movimentacoes
+Accept: application/json
 
 ###

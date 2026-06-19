@@ -1,195 +1,239 @@
 {
-    "epic": {
-        "title": "Entrega do Desafio Técnico ZDZCode 2026",
-        "body": "Planejar, implementar e validar uma solução full stack de gestão de catálogo (categorias e produtos), aderente aos critérios do PDF e pronta para submissão.",
-        "labels": [
-            "type:feature",
-            "priority:P0",
-            "critical:eliminatorio",
-            "phase:0-alignment",
-            "area:docs"
-        ],
-        "milestone": "Fase 0 - Alinhamento e Escopo"
+  "epic": {
+    "body": "Planejar, implementar e validar uma solução full stack de gestão de catálogo e jornadas transacionais, aderente aos critérios do PDF e pronta para submissão.",
+    "labels": [
+      "type:feature",
+      "priority:P0",
+      "critical:eliminatorio",
+      "phase:0-ux",
+      "area:docs"
+    ],
+    "milestone": "Fase 0 - Modelagem e Governanca",
+    "title": "Entrega do Desafio Técnico ZDZCode 2026"
+  },
+  "issues": [
+    {
+      "body": "## Objetivo\nDefinir a identidade visual oficial que servira de base para todas as telas e componentes do frontend.\n\n## Escopo\n- Consolidar paleta principal light/dark.\n- Definir tipografia oficial para titulos e corpo.\n- Definir tokens de espacamento, borda, raio, sombras e contraste.\n- Definir estilo de botoes, inputs, tabelas, badges, alerts e cards.\n- Registrar principios de consistencia visual e legibilidade.\n\n## Entregaveis\n- Atualizacao da documentacao visual existente.\n- Tabela de tokens visuais versionada no repositorio.\n- Regras de uso dos componentes-base.\n\n## Critérios de Aceite\n- [ ] Paleta oficial definida e documentada.\n- [ ] Tipografia oficial definida e documentada.\n- [ ] Tokens de layout e componentes registrados.\n- [ ] Regras de aplicacao light/dark definidas.\n- [ ] Base visual aprovada para uso nas demais telas.\n\n## Definicao de Pronto\n- Documento visual atualizado no repositorio.\n- Nao ha ambiguidade sobre o visual base do frontend.\n- Proxima etapa de esbocos pode usar esta base sem redefinir estilo.",
+      "labels": [
+        "area:ux",
+        "type:feature",
+        "priority:P0",
+        "phase:0-ux",
+        "critical:eliminatorio"
+      ],
+      "milestone": "Fase 0.1 - UX e Identidade Visual",
+      "title": "UX-01: Definir identidade visual oficial do frontend"
     },
-    "issues": [
-        {
-            "title": "Definir escopo fechado do desafio",
-            "body": "## Contexto\nConsolida o escopo técnico e funcional do desafio para evitar deriva.\n\n## Objetivo\nFormalizar escopo fechado com critérios de pronto por fase.\n\n## Critérios de aceite\n- [ ] Escopo fechado documentado\n- [ ] Critérios críticos do PDF listados\n- [ ] Definição de fora de escopo registrada\n\n## Evidência esperada\nArquivo BluePrint atualizado e rastreável.",
-            "labels": [
-                "area:docs",
-                "type:feature",
-                "priority:P0",
-                "phase:0-alignment",
-                "critical:eliminatorio"
-            ],
-            "milestone": "Fase 0 - Alinhamento e Escopo"
-        },
-        {
-            "title": "Estruturar solução backend .NET",
-            "body": "## Contexto\nCriar fundação da API para suportar CRUD e regras do desafio.\n\n## Objetivo\nEstruturar projeto .NET com organização base para domínio e persistência.\n\n## Critérios de aceite\n- [ ] Projeto API criado\n- [ ] Estrutura de pastas definida\n- [ ] Configuração inicial funcional",
-            "labels": [
-                "area:backend",
-                "type:feature",
-                "priority:P0",
-                "phase:1-architecture"
-            ],
-            "milestone": "Fase 1 - Arquitetura Base"
-        },
-        {
-            "title": "Modelar entidades Categoria e Produto",
-            "body": "## Contexto\nModelagem é base para integridade referencial do desafio.\n\n## Objetivo\nCriar entidades e relacionamento 1:N com campos obrigatórios.\n\n## Critérios de aceite\n- [ ] Entidades Categoria e Produto criadas\n- [ ] Relacionamento 1:N configurado\n- [ ] FK explícita definida",
-            "labels": [
-                "area:db",
-                "type:feature",
-                "priority:P0",
-                "phase:2-backend",
-                "critical:eliminatorio"
-            ],
-            "milestone": "Fase 2 - Backend"
-        },
-        {
-            "title": "Configurar EF Core com banco relacional real",
-            "body": "## Contexto\nEF Core com banco real é obrigatório no desafio.\n\n## Objetivo\nConfigurar DbContext e provider relacional com migrations.\n\n## Critérios de aceite\n- [ ] Banco relacional configurado\n- [ ] Migrations aplicáveis\n- [ ] Sem EF InMemory",
-            "labels": [
-                "area:backend",
-                "type:feature",
-                "priority:P0",
-                "phase:2-backend",
-                "critical:eliminatorio"
-            ],
-            "milestone": "Fase 2 - Backend"
-        },
-        {
-            "title": "Implementar endpoints de categorias",
-            "body": "## Objetivo\nEntregar CRUD de categorias conforme contrato da API.",
-            "labels": [
-                "area:backend",
-                "type:feature",
-                "priority:P0",
-                "phase:2-backend"
-            ],
-            "milestone": "Fase 2 - Backend"
-        },
-        {
-            "title": "Implementar endpoints de produtos com Include de categoria",
-            "body": "## Objetivo\nEntregar CRUD de produtos com retorno de categoria vinculada.",
-            "labels": [
-                "area:backend",
-                "type:feature",
-                "priority:P0",
-                "phase:2-backend",
-                "critical:eliminatorio"
-            ],
-            "milestone": "Fase 2 - Backend"
-        },
-        {
-            "title": "Implementar regra de bloqueio na exclusão de categorias vinculadas",
-            "body": "## Objetivo\nBloquear exclusão de categoria com produtos vinculados e retornar erro apropriado.",
-            "labels": [
-                "area:backend",
-                "type:feature",
-                "priority:P0",
-                "phase:2-backend",
-                "critical:eliminatorio"
-            ],
-            "milestone": "Fase 2 - Backend"
-        },
-        {
-            "title": "Configurar CORS restritivo para frontend Nuxt",
-            "body": "## Objetivo\nPermitir apenas origem do frontend e evitar AllowAnyOrigin.",
-            "labels": [
-                "area:backend",
-                "type:feature",
-                "priority:P0",
-                "phase:2-backend",
-                "critical:eliminatorio"
-            ],
-            "milestone": "Fase 2 - Backend"
-        },
-        {
-            "title": "Inicializar aplicação Nuxt 3",
-            "body": "## Objetivo\nCriar base do frontend com rotas e estrutura inicial.",
-            "labels": [
-                "area:frontend",
-                "type:feature",
-                "priority:P0",
-                "phase:1-architecture"
-            ],
-            "milestone": "Fase 1 - Arquitetura Base"
-        },
-        {
-            "title": "Criar página de categorias com grid e ações",
-            "body": "## Objetivo\nEntregar listagem de categorias com ações de editar e excluir.",
-            "labels": [
-                "area:frontend",
-                "type:feature",
-                "priority:P0",
-                "phase:3-frontend"
-            ],
-            "milestone": "Fase 3 - Frontend"
-        },
-        {
-            "title": "Criar página de produtos com grid e select de categorias",
-            "body": "## Objetivo\nEntregar listagem de produtos com seleção de categoria carregada da API.",
-            "labels": [
-                "area:frontend",
-                "type:feature",
-                "priority:P0",
-                "phase:3-frontend"
-            ],
-            "milestone": "Fase 3 - Frontend"
-        },
-        {
-            "title": "Implementar fluxo de edição e exclusão sem refresh",
-            "body": "## Objetivo\nGarantir atualização reativa da UI após operações de edição e exclusão.",
-            "labels": [
-                "area:frontend",
-                "type:feature",
-                "priority:P0",
-                "phase:3-frontend",
-                "critical:eliminatorio"
-            ],
-            "milestone": "Fase 3 - Frontend"
-        },
-        {
-            "title": "Implementar validação visual de nome mínimo",
-            "body": "## Objetivo\nBloquear ação de salvar com nome inválido no frontend.",
-            "labels": [
-                "area:frontend",
-                "type:feature",
-                "priority:P1",
-                "phase:3-frontend"
-            ],
-            "milestone": "Fase 3 - Frontend"
-        },
-        {
-            "title": "Implementar tratamento visual de erro de integridade",
-            "body": "## Objetivo\nExibir mensagem amigável quando regra de integridade impedir exclusão.",
-            "labels": [
-                "area:frontend",
-                "type:feature",
-                "priority:P1",
-                "phase:3-frontend"
-            ],
-            "milestone": "Fase 3 - Frontend"
-        },
-        {
-            "title": "Documentar setup, migrations e payloads no README",
-            "body": "## Objetivo\nDeixar guia reproduzível para execução local e validação do desafio.",
-            "labels": [ "area:docs", "type:docs", "priority:P0", "phase:4-quality" ],
-            "milestone": "Fase 4 - Qualidade e Evidências"
-        },
-        {
-            "title": "Validar critérios de aceite do PDF",
-            "body": "## Objetivo\nExecutar checklist de conformidade final com critérios obrigatórios do desafio.",
-            "labels": [
-                "area:qa",
-                "type:test",
-                "priority:P0",
-                "phase:4-quality",
-                "critical:eliminatorio"
-            ],
-            "milestone": "Fase 4 - Qualidade e Evidências"
-        }
-    ]
+    {
+      "body": "## Objetivo\nProduzir esbocos de referencia para o shell da aplicacao e para as telas de catalogo.\n\n## Escopo\n- Esboco do layout principal (topbar, navegacao, container, estados globais).\n- Esboco da tela de categorias.\n- Esboco da tela de produtos.\n- Variacoes para desktop e mobile.\n- Identificacao das acoes principais e hierarquia visual.\n\n## Entregaveis\n- Esbocos versionados na documentacao visual.\n- Referencia clara para implementacao/revisao das telas atuais.\n\n## Critérios de Aceite\n- [ ] Esboco do app shell documentado.\n- [ ] Esboco da tela de categorias documentado.\n- [ ] Esboco da tela de produtos documentado.\n- [ ] Estrutura responsiva prevista.\n- [ ] Hierarquia de informacao claramente definida.\n\n## Definicao de Pronto\n- Shell e telas de catalogo podem ser implementados/refinados sem decisao visual ad hoc.\n- Comportamento e estrutura das acoes principais ficaram claros.",
+      "labels": [
+        "area:ux",
+        "type:feature",
+        "priority:P0",
+        "phase:0-ux"
+      ],
+      "milestone": "Fase 0.1 - UX e Identidade Visual",
+      "title": "UX-02: Produzir esbocos do app shell, categorias e produtos"
+    },
+    {
+      "body": "## Objetivo\nDefinir esbocos das telas transacionais e documentar o comportamento padrao dos componentes e estados de interface.\n\n## Escopo\n- Esbocos de clientes, pedidos, pagamentos e estoque.\n- Regras de comportamento para formularios, tabelas, modais, confirmacoes e feedbacks.\n- Padrao para estados loading, empty, error e success.\n- Padrao para acoes destrutivas e fluxos multi-etapa.\n\n## Entregaveis\n- Esbocos das telas transacionais.\n- Guia documentado de comportamento dos componentes.\n- Padrao de UX reutilizavel no frontend.\n\n## Critérios de Aceite\n- [ ] Esbocos de clientes, pedidos, pagamentos e estoque documentados.\n- [ ] Estados de interface documentados.\n- [ ] Regras de confirmacao/exclusao documentadas.\n- [ ] Comportamento de formularios e tabelas padronizado.\n- [ ] Guia de comportamento pronto para orientar implementacao.\n\n## Definicao de Pronto\n- Qualquer tela nova consegue seguir o mesmo padrao sem rediscutir UX.\n- Ha base documental para revisao de consistencia entre paginas.",
+      "labels": [
+        "area:ux",
+        "type:feature",
+        "priority:P0",
+        "phase:0-ux"
+      ],
+      "milestone": "Fase 0.1 - UX e Identidade Visual",
+      "title": "UX-03: Produzir esbocos transacionais e guia de comportamento dos componentes"
+    },
+    {
+      "body": "## Objetivo\nImplementar as entidades de cliente e endereco de entrega conforme o modelo aprovado.\n\n## Escopo\n- Criar entidade Customer.\n- Criar entidade DeliveryAddress.\n- Implementar relacionamento 1:0..1 entre cliente e endereco.\n- Configurar propriedades obrigatorias, unicidade e defaults.\n\n## Criterios de Aceite\n- [ ] Customer criada com campos do modelo aprovado.\n- [ ] DeliveryAddress criada com campos do modelo aprovado.\n- [ ] Relacionamento 1:0..1 configurado.\n- [ ] Restricoes de unicidade e obrigatoriedade configuradas.\n- [ ] Build sem erro apos inclusao das entidades.\n\n## Definicao de Pronto\n- Entidades compilam.\n- Mapeamento atende o modelo documentado.\n- Nao ha quebra das entidades existentes.",
+      "labels": [
+        "area:backend",
+        "type:feature",
+        "priority:P0",
+        "phase:1-backend-foundation"
+      ],
+      "milestone": "Fase 1 - Fundacao Backend",
+      "title": "BE-01: Modelar entidades Customer e DeliveryAddress"
+    },
+    {
+      "body": "## Objetivo\nImplementar o suporte a tags de produto e ao relacionamento N:M.\n\n## Escopo\n- Criar entidade Tag.\n- Criar entidade ProductTag.\n- Configurar chave composta e relacionamento N:M com Product.\n- Impedir duplicidade do par produto/tag.\n\n## Criterios de Aceite\n- [ ] Tag criada com campos do modelo aprovado.\n- [ ] ProductTag criada com chave composta.\n- [ ] Relacionamento N:M configurado corretamente.\n- [ ] Restricao contra duplicidade configurada.\n- [ ] Build sem erro apos inclusao das entidades.\n\n## Definicao de Pronto\n- Estrutura de tags pronta para uso futuro em API e UI.\n- Relacionamento N:M persistivel sem ambiguidade.",
+      "labels": [
+        "area:backend",
+        "type:feature",
+        "priority:P0",
+        "phase:1-backend-foundation"
+      ],
+      "milestone": "Fase 1 - Fundacao Backend",
+      "title": "BE-02: Modelar entidades Tag e ProductTag"
+    },
+    {
+      "body": "## Objetivo\nImplementar a base de pedidos e itens de pedido conforme o modelo aprovado.\n\n## Escopo\n- Criar entidade Order.\n- Criar entidade OrderItem.\n- Configurar relacionamentos com Customer e Product.\n- Preparar campos de subtotal, desconto e total.\n\n## Criterios de Aceite\n- [ ] Order criada com campos do modelo aprovado.\n- [ ] OrderItem criada com campos do modelo aprovado.\n- [ ] Relacionamento 1:N pedido -> itens configurado.\n- [ ] Relacionamento produto -> item configurado.\n- [ ] Build sem erro apos inclusao das entidades.\n\n## Definicao de Pronto\n- Base transacional de pedido pronta para receber regras de negocio.\n- Estrutura suporta totalizacao no backend.",
+      "labels": [
+        "area:backend",
+        "type:feature",
+        "priority:P0",
+        "phase:1-backend-foundation"
+      ],
+      "milestone": "Fase 1 - Fundacao Backend",
+      "title": "BE-03: Modelar entidades Order e OrderItem"
+    },
+    {
+      "body": "## Objetivo\nImplementar as entidades de pagamento e movimentacao de estoque do dominio transacional.\n\n## Escopo\n- Criar entidade Payment.\n- Criar entidade StockMovement.\n- Configurar relacionamento 1:1 entre pedido e pagamento.\n- Configurar relacionamento 1:N entre produto e movimentacoes.\n- Preparar base para validacao de estoque negativo.\n\n## Criterios de Aceite\n- [ ] Payment criada com campos do modelo aprovado.\n- [ ] StockMovement criada com campos do modelo aprovado.\n- [ ] Relacionamento 1:1 pedido -> pagamento configurado.\n- [ ] Relacionamento produto -> movimentacoes configurado.\n- [ ] Build sem erro apos inclusao das entidades.\n\n## Definicao de Pronto\n- Estrutura pronta para regras de pagamento e auditoria de estoque.\n- Mapeamento alinhado ao modelo aprovado.",
+      "labels": [
+        "area:backend",
+        "type:feature",
+        "priority:P0",
+        "phase:1-backend-foundation"
+      ],
+      "milestone": "Fase 1 - Fundacao Backend",
+      "title": "BE-04: Modelar entidades Payment e StockMovement"
+    },
+    {
+      "body": "## Objetivo\nConsolidar o mapeamento do modelo aprovado no EF Core e gerar a migration complementar com seguranca.\n\n## Escopo\n- Adicionar DbSets para as novas entidades.\n- Configurar Fluent API para relacionamentos, chaves compostas, unicidade e indices.\n- Ajustar delete behaviors conforme integridade do dominio.\n- Gerar migration da fase complementar.\n- Aplicar migration localmente e validar schema.\n\n## Criterios de Aceite\n- [ ] DbContext atualizado com todas as novas entidades.\n- [ ] Fluent API cobrindo relacionamentos e restricoes.\n- [ ] Chaves compostas e indices configurados.\n- [ ] Migration criada sem inconsistencias.\n- [ ] `dotnet ef database update` executado com sucesso.\n- [ ] `dotnet build` sem erro.\n\n## Definicao de Pronto\n- Banco local reflete o modelo aprovado.\n- Entidades e mapeamentos compilam e persistem corretamente.\n- Nao ha comportamento destrutivo indevido em cascata.",
+      "labels": [
+        "area:db",
+        "type:feature",
+        "priority:P0",
+        "phase:1-backend-foundation",
+        "critical:eliminatorio"
+      ],
+      "milestone": "Fase 1 - Fundacao Backend",
+      "title": "BE-05: Consolidar DbContext, Fluent API, indices e migration complementar"
+    },
+    {
+      "body": "## Objetivo\nDisponibilizar a API de clientes com contrato claro e validacoes de dominio.\n\n## Escopo\n- Criar CustomersController.\n- Criar DTOs de request/response.\n- Implementar GET/POST/PUT/DELETE.\n- Validar nome, email e regras de unicidade.\n- Retornar HTTP consistente para sucesso e erro.\n\n## Criterios de Aceite\n- [ ] GET /api/clientes implementado.\n- [ ] POST /api/clientes implementado.\n- [ ] PUT /api/clientes/{id} implementado.\n- [ ] DELETE /api/clientes/{id} implementado.\n- [ ] DTOs criados.\n- [ ] Validacoes funcionando com 400/404/409 quando aplicavel.\n- [ ] Testes via `.http` documentados.\n\n## Definicao de Pronto\n- CRUD de clientes testado manualmente.\n- Contrato estavel para consumo do frontend.\n- Erros retornados de forma previsivel.",
+      "labels": [
+        "area:backend",
+        "type:feature",
+        "priority:P0",
+        "phase:2-api-catalog"
+      ],
+      "milestone": "Fase 2 - API de Catalogo e Cadastros",
+      "title": "API-01: Implementar CRUD de Customers"
+    },
+    {
+      "body": "## Objetivo\nDisponibilizar a API de tags e do vinculo entre produtos e tags.\n\n## Escopo\n- Criar TagsController.\n- Criar endpoints para associar e remover tags de produtos.\n- Criar DTOs de request/response.\n- Impedir duplicidade de vinculacao produto/tag.\n\n## Criterios de Aceite\n- [ ] GET/POST/PUT/DELETE de tags implementados.\n- [ ] Endpoint de vinculo produto-tag implementado.\n- [ ] Endpoint de remocao de vinculo produto-tag implementado.\n- [ ] DTOs criados.\n- [ ] Erro de duplicidade tratado adequadamente.\n- [ ] Fluxo testado via `.http`.\n\n## Definicao de Pronto\n- Tags e relacao N:M estao prontas para uso pelo frontend.\n- Contrato evita duplicidade e inconsistencias.",
+      "labels": [
+        "area:backend",
+        "type:feature",
+        "priority:P0",
+        "phase:2-api-catalog"
+      ],
+      "milestone": "Fase 2 - API de Catalogo e Cadastros",
+      "title": "API-02: Implementar CRUD de Tags e vinculo ProductTag"
+    },
+    {
+      "body": "## Objetivo\nImplementar a API de pedidos e itens de pedido com totalizacao de dominio.\n\n## Escopo\n- Criar OrdersController.\n- Criar OrderItemsController ou endpoints aninhados equivalentes.\n- Implementar abertura de pedido, consulta, edicao de status e manipulacao de itens.\n- Calcular subtotal, desconto e total no backend.\n\n## Criterios de Aceite\n- [ ] Criacao de pedido implementada.\n- [ ] Consulta/listagem de pedido implementada.\n- [ ] Inclusao/edicao/remocao de item implementada.\n- [ ] Totalizacao calculada no backend.\n- [ ] Validacoes de cliente/produto/quantidade funcionando.\n- [ ] Fluxo testado via `.http`.\n\n## Definicao de Pronto\n- Pedido pode ser montado e recalculado com consistencia.\n- Contrato suporta a futura tela de pedidos.",
+      "labels": [
+        "area:backend",
+        "type:feature",
+        "priority:P0",
+        "phase:3-api-transactional"
+      ],
+      "milestone": "Fase 3 - API Transacional",
+      "title": "API-03: Implementar endpoints de Orders e OrderItems"
+    },
+    {
+      "body": "## Objetivo\nImplementar a API de pagamentos e movimentacoes de estoque com consistencia operacional.\n\n## Escopo\n- Criar PaymentsController.\n- Criar StockMovementsController.\n- Implementar criacao/listagem/atualizacao de status de pagamento.\n- Implementar consulta e auditoria de movimentacoes de estoque.\n- Impedir inconsistencias entre pedido, pagamento e estoque.\n\n## Criterios de Aceite\n- [ ] PaymentsController implementado.\n- [ ] StockMovementsController implementado.\n- [ ] Pagamento vinculado de forma consistente a pedido.\n- [ ] Movimentacoes listadas com dados suficientes para auditoria.\n- [ ] Validacoes de estoque e estados operacionais funcionando.\n- [ ] Fluxo testado via `.http`.\n\n## Definicao de Pronto\n- API sustenta as jornadas de pagamento e auditoria de estoque.\n- Contrato pronto para integracao de frontend.",
+      "labels": [
+        "area:backend",
+        "type:feature",
+        "priority:P0",
+        "phase:3-api-transactional"
+      ],
+      "milestone": "Fase 3 - API Transacional",
+      "title": "API-04: Implementar endpoints de Payments e StockMovements"
+    },
+    {
+      "body": "## Objetivo\nAplicar a identidade visual oficial ao shell global da aplicacao e estabelecer a base do design system no frontend.\n\n## Escopo\n- Ajustar layout global.\n- Aplicar tokens visuais em CSS variables.\n- Padronizar topbar, navegacao, container e areas de pagina.\n- Revisar alternancia de tema e persistencia.\n- Preparar estilos reutilizaveis para componentes-base.\n\n## Criterios de Aceite\n- [ ] App shell alinhado ao documento visual.\n- [ ] Tokens aplicados no layout global.\n- [ ] Tema light/dark consistente.\n- [ ] Navegacao padronizada para futuras telas.\n- [ ] Base de estilos reutilizaveis estabelecida.\n- [ ] `npm run build` sem erro.\n\n## Definicao de Pronto\n- Todas as paginas podem nascer sobre a mesma fundacao visual.\n- Shell pronto para suportar catalogo e fluxo transacional.",
+      "labels": [
+        "area:frontend",
+        "type:feature",
+        "priority:P0",
+        "phase:4-frontend-catalog"
+      ],
+      "milestone": "Fase 4 - Frontend de Catalogo",
+      "title": "FE-01: Implementar app shell e tokens do design system"
+    },
+    {
+      "body": "## Objetivo\nRefinar a tela de categorias para aderir integralmente ao sistema visual e comportamental documentado.\n\n## Escopo\n- Revisar hierarquia visual da pagina.\n- Padronizar formulario, tabela, acoes e mensagens.\n- Refinar loading, empty state, error state e confirmacoes.\n- Garantir responsividade e acessibilidade basica.\n\n## Criterios de Aceite\n- [ ] Formulario alinhado ao padrao visual.\n- [ ] Tabela alinhada ao padrao visual.\n- [ ] Estados loading/empty/error consistentes.\n- [ ] Exclusao com confirmacao padronizada.\n- [ ] Erro 409 apresentado de forma clara.\n- [ ] `npm run build` sem erro.\n\n## Definicao de Pronto\n- Tela de categorias pode servir de referencia de qualidade para telas equivalentes.\n- Nao ha divergencia relevante entre comportamento documentado e implementado.",
+      "labels": [
+        "area:frontend",
+        "type:feature",
+        "priority:P0",
+        "phase:4-frontend-catalog"
+      ],
+      "milestone": "Fase 4 - Frontend de Catalogo",
+      "title": "FE-02: Padronizar a tela de Categorias com o design system"
+    },
+    {
+      "body": "## Objetivo\nRefinar a tela de produtos para aderir integralmente ao sistema visual e comportamental documentado.\n\n## Escopo\n- Revisar estrutura visual da pagina.\n- Padronizar formulario, select de categoria, tabela, acoes e mensagens.\n- Refinar loading, empty state, error state e confirmacoes.\n- Garantir consistencia com a tela de categorias.\n\n## Criterios de Aceite\n- [ ] Formulario alinhado ao padrao visual.\n- [ ] Select de categoria alinhado ao padrao visual.\n- [ ] Tabela alinhada ao padrao visual.\n- [ ] Estados loading/empty/error consistentes.\n- [ ] Confirmacoes e mensagens padronizadas.\n- [ ] `npm run build` sem erro.\n\n## Definicao de Pronto\n- Tela de produtos apresenta consistencia visual e comportamental com o catalogo.\n- A pagina esta pronta para servir de base a telas mais complexas.",
+      "labels": [
+        "area:frontend",
+        "type:feature",
+        "priority:P0",
+        "phase:4-frontend-catalog"
+      ],
+      "milestone": "Fase 4 - Frontend de Catalogo",
+      "title": "FE-03: Padronizar a tela de Produtos com o design system"
+    },
+    {
+      "body": "## Objetivo\nCriar a tela de clientes seguindo a identidade visual, o guia comportamental e o contrato da API.\n\n## Escopo\n- Listagem de clientes.\n- Formulario de criacao e edicao.\n- Confirmacao para exclusao.\n- Estados de loading, empty, error e success.\n- Responsividade e acessibilidade basica.\n\n## Criterios de Aceite\n- [ ] Listagem funcionando.\n- [ ] Criacao funcionando.\n- [ ] Edicao funcionando.\n- [ ] Exclusao com confirmacao funcionando.\n- [ ] Validacoes visuais consistentes.\n- [ ] `npm run build` sem erro.\n\n## Definicao de Pronto\n- Tela aderente ao design system.\n- Fluxo CRUD de clientes pronto para uso e validacao.",
+      "labels": [
+        "area:frontend",
+        "type:feature",
+        "priority:P0",
+        "phase:5-frontend-transactional"
+      ],
+      "milestone": "Fase 5 - Frontend Transacional",
+      "title": "FE-04: Implementar a tela de Clientes"
+    },
+    {
+      "body": "## Objetivo\nCriar a tela de pedidos com foco em montagem do pedido, itens e totalizacao visual.\n\n## Escopo\n- Cabecalho do pedido.\n- Selecao de cliente.\n- Inclusao, edicao e remocao de itens.\n- Exibicao de subtotal, desconto e total.\n- Estados de loading, empty, error e success.\n\n## Criterios de Aceite\n- [ ] Pedido pode ser criado pela UI.\n- [ ] Itens podem ser adicionados/alterados/removidos.\n- [ ] Totalizacao exibida de forma clara.\n- [ ] Validacoes e mensagens coerentes.\n- [ ] Navegacao/retorno entre telas funcionando.\n- [ ] `npm run build` sem erro.\n\n## Definicao de Pronto\n- Jornada principal de pedido operacional na UI.\n- Tela pronta para integracao com pagamento.",
+      "labels": [
+        "area:frontend",
+        "type:feature",
+        "priority:P0",
+        "phase:5-frontend-transactional"
+      ],
+      "milestone": "Fase 5 - Frontend Transacional",
+      "title": "FE-05: Implementar a tela de Pedidos"
+    },
+    {
+      "body": "## Objetivo\nCriar a tela de pagamentos alinhada ao design system e ao fluxo operacional do pedido.\n\n## Escopo\n- Listagem/status de pagamentos.\n- Criacao de pagamento vinculado a pedido.\n- Atualizacao de status quando aplicavel.\n- Mensagens de sucesso/erro alinhadas ao padrao visual.\n\n## Criterios de Aceite\n- [ ] Pagamentos listados corretamente.\n- [ ] Pagamento pode ser criado a partir de um pedido.\n- [ ] Status pode ser exibido/atualizado conforme contrato.\n- [ ] Estados loading/empty/error consistentes.\n- [ ] `npm run build` sem erro.\n\n## Definicao de Pronto\n- Tela de pagamentos pronta para uso em fluxo ponta a ponta.\n- Comportamento visual consistente com pedidos e catalogo.",
+      "labels": [
+        "area:frontend",
+        "type:feature",
+        "priority:P0",
+        "phase:5-frontend-transactional"
+      ],
+      "milestone": "Fase 5 - Frontend Transacional",
+      "title": "FE-06: Implementar a tela de Pagamentos"
+    },
+    {
+      "body": "## Objetivo\nCriar a visibilidade operacional de estoque e permitir a interacao com tags no frontend.\n\n## Escopo\n- Tela/listagem de movimentacoes de estoque.\n- Exibicao de tipo, quantidade, motivo e data.\n- Interface para vincular/desvincular tags de produtos.\n- Estados de loading, empty e error padronizados.\n\n## Criterios de Aceite\n- [ ] Movimentacoes de estoque listadas.\n- [ ] Informacoes suficientes para auditoria visual.\n- [ ] Vinculo de tags em produtos funcionando.\n- [ ] Desvinculo de tags funcionando.\n- [ ] `npm run build` sem erro.\n\n## Definicao de Pronto\n- Estoque e tags ficam acessiveis ao usuario com a mesma linguagem visual.\n- Fluxo complementar do catalogo/transacional coberto no frontend.",
+      "labels": [
+        "area:frontend",
+        "type:feature",
+        "priority:P0",
+        "phase:5-frontend-transactional"
+      ],
+      "milestone": "Fase 5 - Frontend Transacional",
+      "title": "FE-07: Implementar a tela de Estoque e integracao de Tags"
+    },
+    {
+      "body": "## Objetivo\nConcluir a entrega com validacao tecnica, documental e operacional.\n\n## Escopo\n- Rodar build backend.\n- Rodar build/typecheck frontend.\n- Validar ambiente limpo (cold start).\n- Revisar README, BluePrint, checklist e overview.\n- Consolidar evidencias finais de execucao.\n\n## Criterios de Aceite\n- [ ] `dotnet build` sem erro.\n- [ ] `npm run typecheck` sem erro.\n- [ ] `npm run build` sem erro.\n- [ ] README atualizado.\n- [ ] BluePrint atualizado com progresso real.\n- [ ] Checklist de aceite atualizado.\n- [ ] Overview e evidencias consolidados.\n- [ ] Validacao cold start concluida.\n\n## Definicao de Pronto\n- Entrega tecnicamente reproduzivel.\n- Documentacao coerente com o que foi implementado.\n- Repositorio pronto para submissao.",
+      "labels": [
+        "area:qa",
+        "type:test",
+        "priority:P0",
+        "phase:6-quality",
+        "critical:eliminatorio"
+      ],
+      "milestone": "Fase 6 - Qualidade e Entrega",
+      "title": "QA-01: Validar build, cold start, documentacao e evidencias finais"
+    }
+  ]
 }
