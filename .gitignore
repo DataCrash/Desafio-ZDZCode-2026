@@ -51,6 +51,7 @@ target/
 # Temporary
 .cache/
 .temp/
+temp/
 tmp/
 
 # Placeholders para futuras stacks
