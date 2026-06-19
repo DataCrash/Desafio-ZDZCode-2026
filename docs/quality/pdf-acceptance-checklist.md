@@ -44,6 +44,17 @@ Plano detalhado da fase complementar:
 - [x] Endpoints e payloads de referencia documentados
 - [x] Arquivo HTTP de testes atualizado
 
+## Evidências de qualidade (Fase 6)
+
+- [x] Frontend typecheck executado com sucesso
+  - Evidencia: `npm run typecheck --prefix src/frontend/app` (`EXIT:0`).
+- [x] Backend build executado com sucesso
+  - Evidencia: `dotnet build src/backend/ZDZCode.Api/ZDZCode.Api.csproj -nologo` (`EXIT:0`).
+- [x] Backend testes executados com sucesso
+  - Evidencia: `dotnet test src/backend/ZDZCode.Api/ZDZCode.Api.csproj -nologo --no-build` (`EXIT:0`).
+- [x] Warning conhecido mapeado
+  - Evidencia: `NU1903` em `SQLitePCLRaw.lib.e_sqlite3` registrado como risco técnico não bloqueante.
+
 ## Risco residual
 
 - [ ] Validacao formal por roteiro manual fim-a-fim em ambiente limpo (cold start)
