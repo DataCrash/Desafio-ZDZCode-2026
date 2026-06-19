@@ -26,7 +26,10 @@ Content-Type: application/json
 {
 	"name": "Refrigerante Cola 2L",
 	"description": "Garrafa pet",
+	"sku": "REFRI-COLA-2L",
 	"price": 12.5,
+	"stockCurrent": 50,
+	"isActive": true,
 	"categoryId": 1
 }
 
@@ -100,6 +103,41 @@ Content-Type: application/json
 ###
 
 GET {{ZDZCode.Api_HostAddress}}/api/pedidos
+Accept: application/json
+
+###
+
+POST {{ZDZCode.Api_HostAddress}}/api/pagamentos
+Content-Type: application/json
+
+{
+	"orderId": 1,
+	"method": "pix",
+	"status": "approved",
+	"value": 25,
+	"transactionReference": "PAY-123456"
+}
+
+###
+
+GET {{ZDZCode.Api_HostAddress}}/api/pagamentos
+Accept: application/json
+
+###
+
+POST {{ZDZCode.Api_HostAddress}}/api/estoque/movimentacoes
+Content-Type: application/json
+
+{
+	"productId": 1,
+	"movementType": "entrada",
+	"quantity": 10,
+	"reason": "Reposicao de estoque"
+}
+
+###
+
+GET {{ZDZCode.Api_HostAddress}}/api/estoque/movimentacoes
 Accept: application/json
 
 ###

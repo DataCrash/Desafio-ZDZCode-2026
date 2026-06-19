@@ -125,6 +125,11 @@ public sealed class PedidosController(AppDbContext dbContext) : ControllerBase
             return BadRequest(new { message = "Produto invalido para o item." });
         }
 
+        if (product.StockCurrent < request.Quantity)
+        {
+            return Conflict(new { message = "Estoque insuficiente para incluir item no pedido." });
+        }
+
         var alreadyExists = order.Items.Any(x => x.ProductId == request.ProductId);
         if (alreadyExists)
         {
@@ -141,6 +146,16 @@ public sealed class PedidosController(AppDbContext dbContext) : ControllerBase
         };
 
         order.Items.Add(item);
+        product.StockCurrent -= request.Quantity;
+        dbContext.StockMovements.Add(new StockMovement
+        {
+            ProductId = product.Id,
+            MovementType = "saida",
+            Quantity = request.Quantity,
+            Reason = $"Saida automatica do pedido {order.Id}",
+            CreatedAt = DateTime.UtcNow
+        });
+
         order.UpdatedAt = DateTime.UtcNow;
         RecalculateTotals(order);
 
@@ -165,6 +180,44 @@ public sealed class PedidosController(AppDbContext dbContext) : ControllerBase
         if (item is null)
         {
             return NotFound(new { message = "Item do pedido nao encontrado." });
+        }
+
+        var product = await dbContext.Products.FirstOrDefaultAsync(x => x.Id == item.ProductId, ct);
+        if (product is null)
+        {
+            return BadRequest(new { message = "Produto do item nao encontrado." });
+        }
+
+        var quantityDelta = request.Quantity - item.Quantity;
+        if (quantityDelta > 0)
+        {
+            if (product.StockCurrent < quantityDelta)
+            {
+                return Conflict(new { message = "Estoque insuficiente para aumentar quantidade do item." });
+            }
+
+            product.StockCurrent -= quantityDelta;
+            dbContext.StockMovements.Add(new StockMovement
+            {
+                ProductId = product.Id,
+                MovementType = "saida",
+                Quantity = quantityDelta,
+                Reason = $"Saida automatica por ajuste no pedido {order.Id}",
+                CreatedAt = DateTime.UtcNow
+            });
+        }
+        else if (quantityDelta < 0)
+        {
+            var returned = Math.Abs(quantityDelta);
+            product.StockCurrent += returned;
+            dbContext.StockMovements.Add(new StockMovement
+            {
+                ProductId = product.Id,
+                MovementType = "entrada",
+                Quantity = returned,
+                Reason = $"Entrada automatica por ajuste no pedido {order.Id}",
+                CreatedAt = DateTime.UtcNow
+            });
         }
 
         item.Quantity = request.Quantity;
@@ -194,6 +247,20 @@ public sealed class PedidosController(AppDbContext dbContext) : ControllerBase
         if (item is null)
         {
             return NotFound(new { message = "Item do pedido nao encontrado." });
+        }
+
+        var product = await dbContext.Products.FirstOrDefaultAsync(x => x.Id == item.ProductId, ct);
+        if (product is not null)
+        {
+            product.StockCurrent += item.Quantity;
+            dbContext.StockMovements.Add(new StockMovement
+            {
+                ProductId = product.Id,
+                MovementType = "entrada",
+                Quantity = item.Quantity,
+                Reason = $"Entrada automatica por exclusao de item no pedido {order.Id}",
+                CreatedAt = DateTime.UtcNow
+            });
         }
 
         dbContext.OrderItems.Remove(item);

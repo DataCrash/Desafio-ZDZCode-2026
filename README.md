@@ -99,6 +99,17 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 - `PUT /api/pedidos/{id}/itens/{itemId}`
 - `DELETE /api/pedidos/{id}/itens/{itemId}`
 
+### Pagamentos
+
+- `GET /api/pagamentos`
+- `POST /api/pagamentos`
+- `PUT /api/pagamentos/{id}`
+
+### Estoque
+
+- `GET /api/estoque/movimentacoes`
+- `POST /api/estoque/movimentacoes`
+
 ## Payloads de referência
 
 ### Criar categoria
@@ -116,7 +127,10 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 {
   "name": "Refrigerante Cola 2L",
   "description": "Garrafa pet",
+  "sku": "REFRI-COLA-2L",
   "price": 12.5,
+  "stockCurrent": 50,
+  "isActive": true,
   "categoryId": 1
 }
 ```
@@ -161,6 +175,29 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 }
 ```
 
+### Criar pagamento
+
+```json
+{
+  "orderId": 1,
+  "method": "pix",
+  "status": "approved",
+  "value": 25,
+  "transactionReference": "PAY-123456"
+}
+```
+
+### Movimentar estoque
+
+```json
+{
+  "productId": 1,
+  "movementType": "entrada",
+  "quantity": 10,
+  "reason": "Reposicao de estoque"
+}
+```
+
 ## Regras de domínio já aplicadas
 
 - Nome com mínimo de 5 caracteres (frontend e backend)
@@ -169,6 +206,9 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 - Unicidade de e-mail para clientes (retorno de conflito)
 - Relação N:M entre produto e tag com bloqueio de vínculo duplicado
 - Totalização de pedidos com itens e desconto no backend
+- Bloqueio de estoque negativo em movimentações e em itens de pedido
+- Movimentação automática de estoque em inclusão/ajuste/exclusão de item do pedido
+- Relação 1:1 entre pedido e pagamento com bloqueio de pagamento duplicado
 
 ## Verificações rápidas
 

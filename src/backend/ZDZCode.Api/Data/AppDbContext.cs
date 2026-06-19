@@ -13,6 +13,8 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
     public DbSet<ProductTag> ProductTags => Set<ProductTag>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+    public DbSet<Payment> Payments => Set<Payment>();
+    public DbSet<StockMovement> StockMovements => Set<StockMovement>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,7 +32,12 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
             entity.HasKey(x => x.Id);
             entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
             entity.Property(x => x.Description).HasMaxLength(500);
+            entity.Property(x => x.Sku).HasMaxLength(60);
             entity.Property(x => x.Price).HasColumnType("decimal(18,2)");
+            entity.Property(x => x.StockCurrent).HasDefaultValue(0);
+            entity.Property(x => x.IsActive).HasDefaultValue(true);
+
+            entity.HasIndex(x => x.Sku).IsUnique();
 
             entity
                 .HasOne(x => x.Category)
@@ -138,6 +145,42 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
             entity
                 .HasOne(x => x.Product)
                 .WithMany(x => x.OrderItems)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Payment>(entity =>
+        {
+            entity.ToTable("Payments");
+            entity.HasKey(x => x.Id);
+
+            entity.Property(x => x.Method).IsRequired().HasMaxLength(40);
+            entity.Property(x => x.Status).IsRequired().HasMaxLength(40);
+            entity.Property(x => x.Value).HasColumnType("decimal(18,2)");
+            entity.Property(x => x.TransactionReference).HasMaxLength(120);
+            entity.Property(x => x.CreatedAt).IsRequired();
+
+            entity.HasIndex(x => x.OrderId).IsUnique();
+
+            entity
+                .HasOne(x => x.Order)
+                .WithOne(x => x.Payment)
+                .HasForeignKey<Payment>(x => x.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<StockMovement>(entity =>
+        {
+            entity.ToTable("StockMovements");
+            entity.HasKey(x => x.Id);
+
+            entity.Property(x => x.MovementType).IsRequired().HasMaxLength(20);
+            entity.Property(x => x.Reason).HasMaxLength(200);
+            entity.Property(x => x.CreatedAt).IsRequired();
+
+            entity
+                .HasOne(x => x.Product)
+                .WithMany(x => x.StockMovements)
                 .HasForeignKey(x => x.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
