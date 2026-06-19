@@ -24,4 +24,5 @@ public sealed class Customer
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public DeliveryAddress? DeliveryAddress { get; set; }
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
 }

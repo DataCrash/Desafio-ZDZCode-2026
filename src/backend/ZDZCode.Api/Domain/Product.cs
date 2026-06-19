@@ -22,4 +22,7 @@ public sealed class Product
     public int CategoryId { get; set; }
 
     public Category? Category { get; set; }
+
+    public ICollection<ProductTag> ProductTags { get; set; } = new List<ProductTag>();
+    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }
