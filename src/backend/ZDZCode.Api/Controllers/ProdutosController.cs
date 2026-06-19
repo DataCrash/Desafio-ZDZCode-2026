@@ -22,7 +22,10 @@ public sealed class ProdutosController(AppDbContext dbContext) : ControllerBase
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
+                Sku = x.Sku,
                 Price = x.Price,
+                StockCurrent = x.StockCurrent,
+                IsActive = x.IsActive,
                 CategoryId = x.CategoryId,
                 Category = x.Category == null
                     ? null
@@ -51,7 +54,10 @@ public sealed class ProdutosController(AppDbContext dbContext) : ControllerBase
         {
             Name = request.Name.Trim(),
             Description = request.Description?.Trim(),
+            Sku = request.Sku?.Trim(),
             Price = request.Price,
+            StockCurrent = request.StockCurrent,
+            IsActive = request.IsActive,
             CategoryId = request.CategoryId
         };
 
@@ -68,7 +74,10 @@ public sealed class ProdutosController(AppDbContext dbContext) : ControllerBase
             Id = created.Id,
             Name = created.Name,
             Description = created.Description,
+            Sku = created.Sku,
             Price = created.Price,
+            StockCurrent = created.StockCurrent,
+            IsActive = created.IsActive,
             CategoryId = created.CategoryId,
             Category = created.Category == null
                 ? null
@@ -98,7 +107,10 @@ public sealed class ProdutosController(AppDbContext dbContext) : ControllerBase
 
         product.Name = request.Name.Trim();
         product.Description = request.Description?.Trim();
+        product.Sku = request.Sku?.Trim();
         product.Price = request.Price;
+        product.StockCurrent = request.StockCurrent;
+        product.IsActive = request.IsActive;
         product.CategoryId = request.CategoryId;
 
         await dbContext.SaveChangesAsync(ct);
@@ -113,7 +125,10 @@ public sealed class ProdutosController(AppDbContext dbContext) : ControllerBase
             Id = updated.Id,
             Name = updated.Name,
             Description = updated.Description,
+            Sku = updated.Sku,
             Price = updated.Price,
+            StockCurrent = updated.StockCurrent,
+            IsActive = updated.IsActive,
             CategoryId = updated.CategoryId,
             Category = updated.Category == null
                 ? null

@@ -4,6 +4,14 @@
 
 Checklist consolidado com base no BluePrint, contrato de API e implementacao atual do repositorio.
 
+Modelo oficial de entidades e relacionamentos:
+
+- `docs/operations/domain-model-approved.md`
+
+Plano detalhado da fase complementar:
+
+- `docs/operations/execution-plan-complementar.md`
+
 ## Critérios eliminatórios
 
 - [x] Nao usa EF Core InMemory

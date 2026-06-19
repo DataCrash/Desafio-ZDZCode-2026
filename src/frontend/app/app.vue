@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from "vue";
+
 type ThemeMode = "light" | "dark";
 
 const THEME_KEY = "zdz-theme";
@@ -55,8 +57,12 @@ onMounted(() => {
       </div>
 
       <nav class="topbar-nav">
-        <NuxtLink to="/categorias">Categories</NuxtLink>
-        <NuxtLink to="/produtos">Products</NuxtLink>
+        <NuxtLink to="/categorias">Categorias</NuxtLink>
+        <NuxtLink to="/produtos">Produtos</NuxtLink>
+        <NuxtLink to="/clientes">Clientes</NuxtLink>
+        <NuxtLink to="/pedidos">Pedidos</NuxtLink>
+        <NuxtLink to="/pagamentos">Pagamentos</NuxtLink>
+        <NuxtLink to="/estoque">Estoque</NuxtLink>
       </nav>
 
       <button

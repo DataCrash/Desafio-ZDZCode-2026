@@ -17,9 +17,19 @@ Implementação full stack do desafio técnico ZDZCode 2026.
 
 ## Estrutura de código
 
-- `src/backend/ZDZCode.Api`: API REST de categorias e produtos
+- `src/backend/ZDZCode.Api`: API REST de categorias, produtos, clientes, tags e pedidos
 - `src/frontend/app`: interface Nuxt com páginas `/categorias` e `/produtos`
 - `scripts/agents`: agentes operacionais (Flow Guard, Board Ops, Delivery Prep)
+
+## Modelo de dominio aprovado (permanente)
+
+O modelo oficial de entidades e relacionamentos contemplado pelo sistema esta documentado em:
+
+- `docs/operations/domain-model-approved.md`
+
+Planejamento detalhado de implementacao da fase complementar:
+
+- `docs/operations/execution-plan-complementar.md`
 
 ## Backend - executar localmente
 
@@ -61,6 +71,45 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 - `PUT /api/produtos/{id}`
 - `DELETE /api/produtos/{id}`
 
+### Clientes
+
+- `GET /api/clientes`
+- `GET /api/clientes/{id}`
+- `POST /api/clientes`
+- `PUT /api/clientes/{id}`
+- `DELETE /api/clientes/{id}`
+
+### Tags
+
+- `GET /api/tags`
+- `POST /api/tags`
+- `PUT /api/tags/{id}`
+- `DELETE /api/tags/{id}`
+- `POST /api/tags/{tagId}/produtos/{productId}`
+- `DELETE /api/tags/{tagId}/produtos/{productId}`
+
+### Pedidos
+
+- `GET /api/pedidos`
+- `GET /api/pedidos/{id}`
+- `POST /api/pedidos`
+- `PUT /api/pedidos/{id}`
+- `DELETE /api/pedidos/{id}`
+- `POST /api/pedidos/{id}/itens`
+- `PUT /api/pedidos/{id}/itens/{itemId}`
+- `DELETE /api/pedidos/{id}/itens/{itemId}`
+
+### Pagamentos
+
+- `GET /api/pagamentos`
+- `POST /api/pagamentos`
+- `PUT /api/pagamentos/{id}`
+
+### Estoque
+
+- `GET /api/estoque/movimentacoes`
+- `POST /api/estoque/movimentacoes`
+
 ## Payloads de referência
 
 ### Criar categoria
@@ -78,8 +127,74 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 {
   "name": "Refrigerante Cola 2L",
   "description": "Garrafa pet",
+  "sku": "REFRI-COLA-2L",
   "price": 12.5,
+  "stockCurrent": 50,
+  "isActive": true,
   "categoryId": 1
+}
+```
+
+### Criar cliente
+
+```json
+{
+  "name": "Cliente Exemplo",
+  "email": "cliente@example.com",
+  "phone": "11999999999",
+  "isActive": true,
+  "deliveryAddress": {
+    "street": "Rua das Flores",
+    "number": "100",
+    "district": "Centro",
+    "city": "Sao Paulo",
+    "state": "SP",
+    "zipCode": "01000-000",
+    "complement": "Apto 12"
+  }
+}
+```
+
+### Criar pedido
+
+```json
+{
+  "customerId": 1,
+  "status": "draft",
+  "discountTotal": 0,
+  "note": "Pedido inicial"
+}
+```
+
+### Adicionar item no pedido
+
+```json
+{
+  "productId": 1,
+  "quantity": 2
+}
+```
+
+### Criar pagamento
+
+```json
+{
+  "orderId": 1,
+  "method": "pix",
+  "status": "approved",
+  "value": 25,
+  "transactionReference": "PAY-123456"
+}
+```
+
+### Movimentar estoque
+
+```json
+{
+  "productId": 1,
+  "movementType": "entrada",
+  "quantity": 10,
+  "reason": "Reposicao de estoque"
 }
 ```
 
@@ -88,6 +203,12 @@ Configuração de base da API em `src/frontend/app/nuxt.config.ts`:
 - Nome com mínimo de 5 caracteres (frontend e backend)
 - Bloqueio de exclusão de categoria com produtos vinculados (retorno de conflito)
 - Atualização reativa da UI após `PUT`/`DELETE` sem refresh forçado
+- Unicidade de e-mail para clientes (retorno de conflito)
+- Relação N:M entre produto e tag com bloqueio de vínculo duplicado
+- Totalização de pedidos com itens e desconto no backend
+- Bloqueio de estoque negativo em movimentações e em itens de pedido
+- Movimentação automática de estoque em inclusão/ajuste/exclusão de item do pedido
+- Relação 1:1 entre pedido e pagamento com bloqueio de pagamento duplicado
 
 ## Verificações rápidas
 

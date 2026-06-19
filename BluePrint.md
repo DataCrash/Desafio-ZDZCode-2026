@@ -1,150 +1,308 @@
-# BluePrint - Desafio Técnico ZDZCode 2026
+# BluePrint - Desafio Tecnico ZDZCode 2026
 
-## Objetivo
+## 1. Objetivo
 
-Entregar uma solução full stack aderente ao PDF do desafio, com foco em execução pragmática, código de produção e risco mínimo de desclassificação.
+Implementar uma solucao full stack aderente ao desafio, com foco em:
 
-## Escopo Fechado
+- dominio consistente;
+- API confiavel;
+- frontend reativo;
+- frontend com identidade visual consistente e documentada;
+- rastreabilidade documental;
+- baixo risco de desclassificacao.
 
-- Domínio: catálogo de inventário (Produtos e Categorias).
-- Back-end: API .NET com EF Core e banco relacional real.
-- Front-end: Nuxt 3 com grid reativo e operações CRUD.
-- Documentação: README reproduzível com setup, migrations e payloads.
+## 2. Escopo do Sistema (Aprovado)
 
-## Fora de Escopo
+O sistema vai contemplar o dominio de catalogo e vendas com as entidades e relacionamentos aprovados na modelagem.
 
-- Funcionalidades não exigidas no PDF.
-- Otimizações prematuras sem impacto no aceite.
-- Arquitetura excessivamente complexa para o desafio.
+Fonte oficial do modelo aprovado:
 
-## Fontes Oficiais
+- `docs/operations/domain-model-approved.md`
+
+## 3. Fontes Oficiais
 
 - [Vaga](https://odoo.zdzcode.com.br/pt/jobs/desenvolvedor-a-full-stack-100-remoto-8)
 - [PDF do desafio](https://odoo.zdzcode.com.br/web/content/1799/desafio-de-código-2026.pdf?download=true)
-- [Análise da vaga](.copilot/memory/notes/ZDZ_VAGA_ANALISE.md)
-- [Análise do PDF](.copilot/memory/notes/ZDZ_DESAFIO_PDF_ANALISE.md)
+- `.copilot/memory/notes/ZDZ_VAGA_ANALISE.md`
+- `.copilot/memory/notes/ZDZ_DESAFIO_PDF_ANALISE.md`
 
-## Critérios Críticos (Eliminatórios)
+## 4. Criterios Criticos (Eliminatorios)
 
-- Não usar EF Core InMemory.
-- Não usar AllowAnyOrigin no CORS.
-- Não usar refresh forçado da página para sincronizar estado.
-- Respeitar contrato de endpoints exigido.
-- Bloquear exclusão de categoria com produtos vinculados.
-- Validar nome com mínimo de 5 caracteres no back e no front.
+- Nao usar EF Core InMemory.
+- Nao usar AllowAnyOrigin no CORS.
+- Nao usar refresh forcado para sincronizacao de estado.
+- Respeitar contrato dos endpoints do desafio.
+- Bloquear exclusao de categoria com produtos vinculados.
+- Validar nome com minimo de 5 caracteres no backend e frontend.
 
-## Contrato Mínimo de Dados
+## 5. Entidades e Relacionamentos Aprovados
 
-- Categoria:
-  - Id
-  - Nome
-  - Descrição
-- Produto:
-  - Id
-  - Nome
-  - Descrição
-  - Preço
-  - CategoriaId
-- Relacionamento:
-  - Categoria 1:N Produto
+### 5.1 Entidades
 
-## Contrato Mínimo de API
+1. CATEGORIA
+2. PRODUTO
+3. CLIENTE
+4. ENDERECO_ENTREGA
+5. PEDIDO
+6. ITEM_PEDIDO
+7. PAGAMENTO
+8. MOVIMENTACAO_ESTOQUE
+9. TAG
+10. PRODUTO_TAG
 
-- Categorias:
-  - GET /api/categorias
-  - POST /api/categorias
-  - PUT /api/categorias/{id}
-  - DELETE /api/categorias/{id}
-- Produtos:
-  - GET /api/produtos (com categoria vinculada)
-  - POST /api/produtos
-  - PUT /api/produtos/{id}
-  - DELETE /api/produtos/{id}
+### 5.2 Relacionamentos
 
-## Regra de Integridade Referencial
+- 1:0..1 CLIENTE -> ENDERECO_ENTREGA
+- 1:1 PEDIDO -> PAGAMENTO
+- 1:N CATEGORIA -> PRODUTO
+- 1:N CLIENTE -> PEDIDO
+- 1:N PEDIDO -> ITEM_PEDIDO
+- 1:N PRODUTO -> ITEM_PEDIDO
+- 1:N PRODUTO -> MOVIMENTACAO_ESTOQUE
+- N:M PRODUTO <-> TAG (via PRODUTO_TAG)
 
-Ao excluir categoria com produtos vinculados, retornar 409 ou 400 com mensagem:
+### 5.3 Regras de Integridade Prioritarias
 
-"Não é possível excluir uma categoria que possua produtos vinculados."
+- Nao permitir exclusao de CATEGORIA com PRODUTO vinculado.
+- Nao permitir ITEM_PEDIDO sem PEDIDO e sem PRODUTO validos.
+- Nao permitir PAGAMENTO sem PEDIDO valido (1:1).
+- Nao permitir PRODUTO_TAG duplicado para o mesmo par produto/tag.
+- Nao permitir estoque negativo em operacoes de saida.
 
-## Contrato Mínimo de Front-end
+## 6. Contrato Minimo de API (Compatibilidade com o Desafio)
 
-- Páginas:
+### Categorias
+
+- GET /api/categorias
+- POST /api/categorias
+- PUT /api/categorias/{id}
+- DELETE /api/categorias/{id}
+
+### Produtos
+
+- GET /api/produtos
+- POST /api/produtos
+- PUT /api/produtos/{id}
+- DELETE /api/produtos/{id}
+
+## 7. Contrato Minimo de Frontend (Compatibilidade com o Desafio)
+
+- Rotas principais:
   - /categorias
   - /produtos
-- Grid com coluna final "Ações".
-- Botões por linha: Editar e Excluir.
-- Edição via modal/dialog ou inline.
-- Confirmação obrigatória antes de DELETE.
-- Botão Salvar desabilitado enquanto Nome < 5.
-- Atualização reativa local após PUT/DELETE sem reload.
-- Tratamento visual de erro de integridade referencial.
-- Select de categoria carregado via GET /api/categorias.
+- UI/UX guiada por identidade visual documentada.
+- Esboco de referencia obrigatorio antes da expansao de telas.
+- Componentes e telas com comportamento uniforme documentado.
+- Grid com coluna Acoes.
+- Editar e excluir por linha.
+- Confirmacao obrigatoria antes de DELETE.
+- Botao salvar desabilitado quando nome invalido.
+- Atualizacao reativa sem refresh da pagina.
+- Tratamento visual para erro de integridade (409).
+- Select de categoria carregado via API em produtos.
 
-## Fases de Implementação
+## 8. Planejamento de Execucao Detalhado
 
-### Fase 0 - Alinhamento
+Fonte oficial detalhada de execucao:
 
-- Congelar escopo e contrato técnico do PDF.
-- Definir critério de pronto por fase.
+- `docs/operations/execution-plan-complementar.md`
 
-### Fase 1 - Arquitetura Base
+### Fase 0 - Modelagem e Governanca (Concluida)
 
-- Estruturar backend (.NET + EF Core + DbContext + entities).
-- Estruturar frontend (Nuxt 3 + rotas + layout base).
-- Definir payloads de entrada e saída.
+Objetivo:
 
-### Fase 2 - Backend
+- Consolidar o modelo aprovado e as regras de processo.
 
-- Implementar modelos e migrations.
-- Implementar CRUD de categorias e produtos.
-- Implementar validações de Nome >= 5.
-- Implementar bloqueio de exclusão com vínculo.
-- Configurar CORS restritivo para origem do front.
+Entregas:
 
-### Fase 3 - Frontend
+- Modelo de entidades e relacionamentos aprovado.
+- Regra de aprovacao antes de implementacao registrada.
 
-- Implementar grids de categorias e produtos.
-- Implementar cadastro, edição e exclusão.
-- Implementar fluxo de confirmação e erros.
-- Garantir sincronização reativa sem reload.
+Criterio de pronto:
 
-### Fase 4 - Qualidade e Evidências
+- Documentacao permanente sem dependencia de pasta temporaria.
 
-- Revisar aderência aos ACs do PDF.
-- Revisar performance básica local das operações.
-- Organizar evidências visuais de funcionamento.
+### Fase 0.1 - Identidade Visual e Esbocos de UX
 
-### Fase 5 - Entrega
+Objetivo:
 
-- Finalizar README com setup completo.
-- Revisar repositório, commits e clareza técnica.
-- Preparar mensagem de submissão objetiva.
+- Definir a base visual do frontend e registrar o comportamento esperado dos componentes e telas.
 
-## Checklist de Pronto
+Atividades tecnicas:
 
-- [ ] Banco relacional real configurado e migrations aplicadas.
-- [ ] Todos os endpoints exigidos implementados e testados.
-- [ ] Validação Nome >= 5 funcionando no back e no front.
-- [ ] Regra de exclusão com vínculo funcionando com resposta correta.
-- [ ] CORS restritivo configurado sem AllowAnyOrigin.
-- [ ] Grid com Ações, editar, excluir e confirmação.
-- [ ] UI reativa sem refresh após PUT/DELETE.
-- [ ] Select de categoria em produtos com carga assíncrona.
-- [ ] README reproduzível validado em ambiente limpo.
+- Consolidar identidade visual oficial.
+- Produzir esbocos das telas prioritarias.
+- Documentar componentes-base, estados de interface e regras de comportamento.
+- Uniformizar a experiencia entre catalogo e fluxos transacionais.
 
-## Riscos e Mitigações
+Saidas esperadas:
 
-- Risco: desvio de escopo.
-  - Mitigação: seguir escopo fechado e task brief por etapa.
-- Risco: falha em critério eliminatório.
-  - Mitigação: validar critérios críticos ao fim de cada fase.
-- Risco: complexidade excessiva.
-  - Mitigação: priorizar aderência ao contrato antes de extras.
+- Guia visual permanente.
+- Esbocos versionados.
+- Padrao reutilizavel para implementacao frontend.
 
-## Modo de Execução
+Criterio de pronto:
 
-- Commits curtos, atômicos e semânticos.
-- Sem alterar nomes canônicos sem ordem explícita.
-- Sem tarefas fora de escopo.
-- Resumo curto por padrão, detalhe sob demanda.
+- Nenhuma nova tela frontend segue sem referencia visual e comportamental documentada.
+
+### Fase 1 - Fundacao Backend
+
+Objetivo:
+
+- Preparar base de dominio e persistencia para todas as entidades aprovadas.
+
+Atividades tecnicas:
+
+- Criar/ajustar entidades de dominio.
+- Configurar mapeamentos, FKs e indices.
+- Configurar migrations iniciais da fase complementar.
+- Revisar CORS e configuracoes de ambiente.
+
+Saidas esperadas:
+
+- Compilacao limpa do backend.
+- Migration consistente aplicada localmente.
+
+Criterio de pronto:
+
+- Estrutura de dados integra e versionada.
+
+### Fase 2 - API de Catalogo e Cadastros
+
+Objetivo:
+
+- Implementar API completa para CATEGORIA, PRODUTO, CLIENTE e TAG.
+
+Atividades tecnicas:
+
+- CRUDs com contratos request/response.
+- Validacoes de dominio e retorno HTTP consistente.
+- Paginacao/filtros simples quando necessario.
+
+Saidas esperadas:
+
+- Endpoints testados via `.http`.
+- Erros de validacao padronizados.
+
+Criterio de pronto:
+
+- Casos principais e de erro cobertos nos recursos base.
+
+### Fase 3 - API Transacional
+
+Objetivo:
+
+- Implementar fluxo de PEDIDO, ITEM_PEDIDO, PAGAMENTO e MOVIMENTACAO_ESTOQUE.
+
+Atividades tecnicas:
+
+- Criar endpoint de abertura e fechamento de pedido.
+- Calcular subtotal, desconto e total no backend.
+- Registrar movimentacao de estoque por operacao.
+- Implementar regras de consistencia transacional.
+
+Saidas esperadas:
+
+- Fluxo completo pedido -> pagamento funcionando.
+- Estoque atualizado de forma auditavel.
+
+Criterio de pronto:
+
+- Integridade transacional validada em cenarios de sucesso/erro.
+
+### Fase 4 - Frontend de Catalogo
+
+Objetivo:
+
+- Garantir UX completa e reativa para CATEGORIA e PRODUTO.
+
+Atividades tecnicas:
+
+- Refinar telas existentes.
+- Padronizar mensagens de erro e estados de carregamento.
+- Garantir acessibilidade basica e responsividade.
+
+Saidas esperadas:
+
+- CRUDs de catalogo estaveis no frontend.
+
+Criterio de pronto:
+
+- Sem refresh forcado; feedback claro ao usuario.
+
+### Fase 5 - Frontend Transacional
+
+Objetivo:
+
+- Entregar jornadas de CLIENTE, PEDIDO e PAGAMENTO.
+
+Atividades tecnicas:
+
+- Tela de clientes (cadastro/listagem/edicao).
+- Tela de pedidos com itens e totalizacao.
+- Tela de pagamento e status.
+- Integracao com atualizacao de estoque e indicadores basicos.
+
+Saidas esperadas:
+
+- Fluxo operacional completo no frontend.
+
+Criterio de pronto:
+
+- Jornada ponta a ponta concluida sem ajustes manuais.
+
+### Fase 6 - Qualidade, Evidencias e Entrega
+
+Objetivo:
+
+- Fechar qualidade tecnica e documentacao para submissao.
+
+Atividades tecnicas:
+
+- Rodar lint/build/testes disponiveis.
+- Atualizar README, checklist e overview.
+- Validar ambiente limpo (cold start).
+
+Saidas esperadas:
+
+- Pacote de entrega coeso e auditavel.
+
+Criterio de pronto:
+
+- Checklist final sem pendencias criticas.
+
+## 9. Checklist Macro de Pronto
+
+### Modelagem
+
+- [x] Entidades e relacionamentos aprovados e documentados.
+- [x] Sem referencia a artefatos temporarios no BluePrint.
+
+### Backend
+
+- [ ] Entidades e mapeamentos implementados conforme modelo aprovado.
+- [ ] Migrations aplicadas com sucesso.
+- [ ] Validacoes e integridade implementadas.
+- [ ] Endpoints principais testados.
+
+### Frontend
+
+- [ ] Identidade visual documentada e versionada.
+- [ ] Esbocos de referencia produzidos para telas prioritarias.
+- [ ] Guia de comportamento de componentes registrado.
+- [ ] CRUD de catalogo estavel.
+- [ ] Jornadas transacionais implementadas.
+- [ ] Tratamento de erro e estados de UI padronizados.
+
+### Qualidade e Entrega
+
+- [ ] Build/lint/testes sem falhas bloqueadoras.
+- [ ] Documentacao final consistente.
+- [ ] Validacao de ambiente limpo concluida.
+
+## 10. Modo de Execucao
+
+- Commits curtos, atomicos e semanticos.
+- Fluxo forward-only (sem rewrite de historico).
+- Implementacao faseada com validacao por etapa.
+- Sem desvio de escopo sem aprovacao explicita.
