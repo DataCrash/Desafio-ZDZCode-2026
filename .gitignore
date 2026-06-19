@@ -53,6 +53,12 @@ target/
 .temp/
 temp/
 tmp/
+.tmp_*
+
+# Local SQLite files (development)
+*.db
+*.db-shm
+*.db-wal
 
 # Placeholders para futuras stacks
 # Go:
