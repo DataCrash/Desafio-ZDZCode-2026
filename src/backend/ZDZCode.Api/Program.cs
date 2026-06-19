@@ -61,14 +61,14 @@ static async Task SeedSampleDataAsync(AppDbContext dbContext)
 
     var electronics = new Category
     {
-        Name = "Eletronicos",
-        Description = "Categoria seed para testes manuais"
+        Name = "Eletrônicos",
+        Description = "Notebooks, periféricos e acessórios para uso corporativo"
     };
 
     var office = new Category
     {
-        Name = "Escritorio",
-        Description = "Categoria seed para operacoes de catalogo"
+        Name = "Escritório",
+        Description = "Itens para rotina administrativa e produtividade"
     };
 
     dbContext.Categories.AddRange(electronics, office);
@@ -76,22 +76,22 @@ static async Task SeedSampleDataAsync(AppDbContext dbContext)
 
     var notebook = new Product
     {
-        Name = "Notebook Pro 14",
-        Description = "Equipamento de demonstracao",
+        Name = "Notebook Corporativo 14",
+        Description = "Notebook para equipe comercial com 16 GB de RAM",
         Sku = "NB-PRO-14",
-        Price = 5999.90m,
-        StockCurrent = 12,
+        Price = 5699.90m,
+        StockCurrent = 8,
         IsActive = true,
         CategoryId = electronics.Id
     };
 
     var keyboard = new Product
     {
-        Name = "Teclado Mecanico",
-        Description = "Periferico para testes de estoque",
+        Name = "Teclado Mecânico ABNT2",
+        Description = "Teclado mecânico para estações de trabalho",
         Sku = "KB-MEC-01",
-        Price = 399.90m,
-        StockCurrent = 25,
+        Price = 349.90m,
+        StockCurrent = 20,
         IsActive = true,
         CategoryId = office.Id
     };
@@ -115,9 +115,9 @@ static async Task SeedSampleDataAsync(AppDbContext dbContext)
 
     var customer = new Customer
     {
-        Name = "Cliente Exemplo",
-        Email = "cliente.exemplo@zdz.local",
-        Phone = "11999990000",
+        Name = "Mariana Souza",
+        Email = "mariana.souza@empresa.com.br",
+        Phone = "11987654321",
         IsActive = true,
         CreatedAt = DateTime.UtcNow
     };
@@ -129,12 +129,12 @@ static async Task SeedSampleDataAsync(AppDbContext dbContext)
     {
         CustomerId = customer.Id,
         Street = "Rua das Flores",
-        Number = "123",
-        District = "Centro",
-        City = "Sao Paulo",
+        Number = "245",
+        District = "Jardim Paulista",
+        City = "São Paulo",
         State = "SP",
-        ZipCode = "01001-000",
-        Complement = "Sala 5"
+        ZipCode = "01419-001",
+        Complement = "Conjunto 52"
     });
 
     var order = new Order
@@ -145,7 +145,7 @@ static async Task SeedSampleDataAsync(AppDbContext dbContext)
         DiscountTotal = 0m,
         Total = notebook.Price,
         CreatedAt = DateTime.UtcNow,
-        Note = "Pedido seed para fluxo de pagamentos"
+        Note = "Pedido de demonstração para validação do fluxo de pagamentos"
     };
 
     dbContext.Orders.Add(order);
@@ -175,16 +175,16 @@ static async Task SeedSampleDataAsync(AppDbContext dbContext)
         {
             ProductId = notebook.Id,
             MovementType = "entrada",
-            Quantity = 12,
-            Reason = "Carga inicial seed",
+            Quantity = 8,
+            Reason = "Carga inicial do estoque",
             CreatedAt = DateTime.UtcNow
         },
         new StockMovement
         {
             ProductId = keyboard.Id,
             MovementType = "entrada",
-            Quantity = 25,
-            Reason = "Carga inicial seed",
+            Quantity = 20,
+            Reason = "Carga inicial do estoque",
             CreatedAt = DateTime.UtcNow
         }
     );

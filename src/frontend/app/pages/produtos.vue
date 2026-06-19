@@ -29,6 +29,7 @@ const categories = ref<Category[]>([]);
 const loading = ref(false);
 const errorMessage = ref("");
 const errorType = ref<"validation" | "conflict" | "server" | null>(null);
+const isCreateOpen = ref(false);
 
 const createForm = reactive<ProductPayload>({
   name: "",
@@ -64,8 +65,11 @@ async function loadData() {
 
     categories.value = categoryResult;
     products.value = productResult;
-  } catch (error: any) {
-    errorMessage.value = "Nao foi possivel carregar produtos.";
+  } catch (error: unknown) {
+    errorMessage.value =
+      error instanceof Error && error.message
+        ? error.message
+        : "Não foi possível carregar produtos.";
     errorType.value = "server";
   } finally {
     loading.value = false;
@@ -163,8 +167,6 @@ async function saveEdit(id: number) {
 }
 
 async function removeProduct(id: number) {
-  if (!confirm("Tem certeza que deseja excluir este produto?")) return;
-
   errorMessage.value = "";
   errorType.value = null;
   try {
@@ -175,7 +177,7 @@ async function removeProduct(id: number) {
 
     if (statusCode === 409) {
       errorMessage.value =
-        "Nao eh possivel excluir um produto com pedidos vinculados.";
+        "Não é possível excluir um produto com pedidos vinculados.";
       errorType.value = "conflict";
       return;
     }
@@ -196,19 +198,42 @@ onMounted(loadData);
     </header>
 
     <div class="neo-card form-card">
-      <h2>Criar novo produto</h2>
-      <div class="form-grid">
-        <div class="form-field">
+      <div class="card-head">
+        <h2>
+          <button
+            v-if="!isCreateOpen"
+            class="title-trigger"
+            type="button"
+            @click="isCreateOpen = true"
+          >
+            Criar novo produto
+          </button>
+          <span v-else>Criar novo produto</span>
+        </h2>
+        <button
+          class="collapse-toggle"
+          type="button"
+          :aria-label="
+            isCreateOpen ? 'Recolher formulário' : 'Expandir formulário'
+          "
+          @click="isCreateOpen = !isCreateOpen"
+        >
+          <span aria-hidden="true">{{ isCreateOpen ? "▴" : "▾" }}</span>
+        </button>
+      </div>
+
+      <div v-show="isCreateOpen" class="form-grid">
+        <div class="form-field required-field">
           <input
             v-model="createForm.name"
-            class="neo-input"
+            class="neo-input required-field"
             :class="{
               'input-error':
                 createForm.name.trim().length > 0 &&
                 createForm.name.trim().length < 5,
             }"
-            placeholder="Nome (minimo 5 caracteres)"
-            aria-label="Nome do produto"
+            placeholder="Nome (mínimo 5 caracteres) *"
+            aria-label="Nome do produto (obrigatório)"
           />
           <span
             v-if="
@@ -217,41 +242,55 @@ onMounted(loadData);
             "
             class="field-hint error"
           >
-            Minimo 5 caracteres
+            Mínimo de 5 caracteres
           </span>
+          <span class="field-meta required">Obrigatório</span>
         </div>
-        <input
-          v-model="createForm.description"
-          class="neo-input"
-          placeholder="Descricao (opcional)"
-          aria-label="Descricao do produto"
-        />
-        <input
-          v-model.number="createForm.price"
-          class="neo-input"
-          type="number"
-          min="0.01"
-          step="0.01"
-          placeholder="Preco"
-          aria-label="Preco do produto"
-        />
-        <select v-model.number="createForm.categoryId" class="neo-input">
-          <option :value="null">Selecione categoria</option>
-          <option
-            v-for="category in categories"
-            :key="category.id"
-            :value="category.id"
+        <div class="form-field">
+          <input
+            v-model="createForm.description"
+            class="neo-input"
+            placeholder="Descrição (opcional)"
+            aria-label="Descrição do produto"
+          />
+          <span class="field-meta optional">Opcional</span>
+        </div>
+        <div class="form-field required-field">
+          <input
+            v-model.number="createForm.price"
+            class="neo-input required-field"
+            type="number"
+            min="0.01"
+            step="0.01"
+            placeholder="Preço *"
+            aria-label="Preço do produto (obrigatório)"
+          />
+          <span class="field-meta required">Obrigatório</span>
+        </div>
+        <div class="form-field required-field">
+          <select
+            v-model.number="createForm.categoryId"
+            class="neo-input required-field"
           >
-            {{ category.name }}
-          </option>
-        </select>
+            <option :value="null">Selecione categoria *</option>
+            <option
+              v-for="category in categories"
+              :key="category.id"
+              :value="category.id"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+          <span class="field-meta required">Obrigatório</span>
+        </div>
         <button
           class="neo-button primary"
           :disabled="!isCreateValid"
           @click="createProduct"
           aria-label="Salvar novo produto"
         >
-          Salvar
+          <span aria-hidden="true">💾</span>
+          <span class="sr-only">Salvar novo produto</span>
         </button>
       </div>
     </div>
@@ -265,22 +304,22 @@ onMounted(loadData);
       {{ errorMessage }}
     </div>
 
-    <div v-if="loading" class="loading-state" role="status" aria-live="polite">
+    <output v-if="loading" class="loading-state" aria-live="polite">
       <div class="spinner"></div>
       <p>Carregando produtos...</p>
-    </div>
+    </output>
 
     <div class="neo-card table-card" v-if="!loading">
       <div class="table-wrap" v-if="products.length > 0">
-        <table role="grid">
+        <table>
           <thead>
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Nome</th>
-              <th scope="col">Descricao</th>
-              <th scope="col">Preco</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Preço</th>
               <th scope="col">Categoria</th>
-              <th scope="col">Acoes</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -343,14 +382,16 @@ onMounted(loadData);
                     @click="startEdit(item)"
                     aria-label="Editar produto"
                   >
-                    Editar
+                    <span aria-hidden="true">✏️</span>
+                    <span class="sr-only">Editar produto</span>
                   </button>
                   <button
                     class="neo-button ghost danger"
                     @click="removeProduct(item.id)"
                     aria-label="Excluir produto"
                   >
-                    Excluir
+                    <span aria-hidden="true">🗑️</span>
+                    <span class="sr-only">Excluir produto</span>
                   </button>
                 </template>
                 <template v-else>
@@ -360,14 +401,16 @@ onMounted(loadData);
                     @click="saveEdit(item.id)"
                     aria-label="Salvar edicao"
                   >
-                    Salvar
+                    <span aria-hidden="true">💾</span>
+                    <span class="sr-only">Salvar edição</span>
                   </button>
                   <button
                     class="neo-button ghost"
                     @click="cancelEdit"
                     aria-label="Cancelar edicao"
                   >
-                    Cancelar
+                    <span aria-hidden="true">✖️</span>
+                    <span class="sr-only">Cancelar edição</span>
                   </button>
                 </template>
               </td>
@@ -422,6 +465,38 @@ onMounted(loadData);
   font-size: 1rem;
 }
 
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.78rem;
+}
+
+.card-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.title-trigger {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.collapse-toggle {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
 .form-grid {
   display: grid;
   gap: 0.62rem;
@@ -433,6 +508,24 @@ onMounted(loadData);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.required-field .neo-input,
+.neo-input.required-field {
+  border-left: 3px solid var(--accent);
+}
+
+.field-meta {
+  font-size: 0.72rem;
+  padding-left: 0.2rem;
+}
+
+.field-meta.required {
+  color: var(--accent-strong);
+}
+
+.field-meta.optional {
+  color: var(--text-soft);
 }
 
 .neo-input {
@@ -604,6 +697,18 @@ tbody tr:hover {
   gap: 0.4rem;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .empty-state {

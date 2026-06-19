@@ -23,6 +23,7 @@ const products = ref<Product[]>([]);
 const movements = ref<Movement[]>([]);
 const loading = ref(false);
 const errorMessage = ref("");
+const isCreateOpen = ref(false);
 
 const form = reactive({
   productId: null as number | null,
@@ -93,13 +94,38 @@ onMounted(loadData);
   <section class="screen">
     <header class="screen-header">
       <h1>Estoque</h1>
-      <p>Movimentacoes de entrada e saida com bloqueio de estoque negativo.</p>
+      <p>Movimentações de entrada e saída com bloqueio de estoque negativo.</p>
     </header>
 
     <div class="neo-card form-card">
-      <h2>Nova movimentacao</h2>
-      <div class="form-grid stock-grid">
-        <select v-model.number="form.productId" class="neo-input">
+      <div class="card-head">
+        <h2>
+          <button
+            v-if="!isCreateOpen"
+            class="title-trigger"
+            type="button"
+            @click="isCreateOpen = true"
+          >
+            Nova movimentação
+          </button>
+          <span v-else>Nova movimentação</span>
+        </h2>
+        <button
+          class="collapse-toggle"
+          type="button"
+          :aria-label="
+            isCreateOpen ? 'Recolher formulário' : 'Expandir formulário'
+          "
+          @click="isCreateOpen = !isCreateOpen"
+        >
+          <span aria-hidden="true">{{ isCreateOpen ? "▴" : "▾" }}</span>
+        </button>
+      </div>
+      <div v-show="isCreateOpen" class="form-grid stock-grid">
+        <select
+          v-model.number="form.productId"
+          class="neo-input required-field"
+        >
           <option :value="null">Selecione produto</option>
           <option
             v-for="product in products"
@@ -110,28 +136,34 @@ onMounted(loadData);
           </option>
         </select>
 
-        <select v-model="form.movementType" class="neo-input">
+        <select v-model="form.movementType" class="neo-input required-field">
           <option value="entrada">Entrada</option>
-          <option value="saida">Saida</option>
+          <option value="saida">Saída</option>
         </select>
 
         <input
           v-model.number="form.quantity"
-          class="neo-input"
+          class="neo-input required-field"
           type="number"
           min="1"
           step="1"
-          placeholder="Quantidade"
+          placeholder="Quantidade *"
         />
 
-        <input v-model="form.reason" class="neo-input" placeholder="Motivo" />
+        <input
+          v-model="form.reason"
+          class="neo-input"
+          placeholder="Motivo (opcional)"
+        />
 
         <button
           class="neo-button primary"
           :disabled="!canCreate"
+          aria-label="Registrar movimentação"
           @click="createMovement"
         >
-          Registrar
+          <span aria-hidden="true">💾</span>
+          <span class="sr-only">Registrar movimentação</span>
         </button>
       </div>
     </div>
@@ -164,7 +196,7 @@ onMounted(loadData);
         </table>
       </div>
 
-      <h2>Historico de movimentacoes</h2>
+      <h2>Histórico de movimentações</h2>
       <div class="table-wrap" v-if="movements.length > 0">
         <table>
           <thead>
@@ -220,6 +252,38 @@ onMounted(loadData);
   font-size: 1rem;
 }
 
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.78rem;
+}
+
+.card-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.title-trigger {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.collapse-toggle {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
 .form-grid {
   display: grid;
   gap: 0.62rem;
@@ -237,6 +301,10 @@ onMounted(loadData);
   color: var(--text);
   font: inherit;
   padding: 0.56rem 0.68rem;
+}
+
+.required-field {
+  border-left: 3px solid var(--accent);
 }
 
 .neo-button {
@@ -297,5 +365,17 @@ td {
   .stock-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 </style>

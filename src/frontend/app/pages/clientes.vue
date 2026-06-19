@@ -24,6 +24,7 @@ const apiBase = config.public.apiBase as string;
 const customers = ref<Customer[]>([]);
 const loading = ref(false);
 const errorMessage = ref("");
+const isCreateOpen = ref(false);
 
 const createForm = reactive({
   name: "",
@@ -114,17 +115,44 @@ onMounted(loadCustomers);
   <section class="screen">
     <header class="screen-header">
       <h1>Clientes</h1>
-      <p>Cadastro de clientes com endereco de entrega opcional.</p>
+      <p>Cadastro de clientes com endereço de entrega opcional.</p>
     </header>
 
     <div class="neo-card form-card">
-      <h2>Novo cliente</h2>
-      <div class="form-grid two-col">
-        <input v-model="createForm.name" class="neo-input" placeholder="Nome" />
+      <div class="card-head">
+        <h2>
+          <button
+            v-if="!isCreateOpen"
+            class="title-trigger"
+            type="button"
+            @click="isCreateOpen = true"
+          >
+            Novo cliente
+          </button>
+          <span v-else>Novo cliente</span>
+        </h2>
+        <button
+          class="collapse-toggle"
+          type="button"
+          :aria-label="
+            isCreateOpen ? 'Recolher formulário' : 'Expandir formulário'
+          "
+          @click="isCreateOpen = !isCreateOpen"
+        >
+          <span aria-hidden="true">{{ isCreateOpen ? "▴" : "▾" }}</span>
+        </button>
+      </div>
+
+      <div v-show="isCreateOpen" class="form-grid two-col">
+        <input
+          v-model="createForm.name"
+          class="neo-input required-field"
+          placeholder="Nome *"
+        />
         <input
           v-model="createForm.email"
-          class="neo-input"
-          placeholder="Email"
+          class="neo-input required-field"
+          placeholder="E-mail *"
         />
         <input
           v-model="createForm.phone"
@@ -144,7 +172,7 @@ onMounted(loadCustomers);
         <input
           v-model="createForm.deliveryAddress.number"
           class="neo-input"
-          placeholder="Numero"
+          placeholder="Número"
         />
         <input
           v-model="createForm.deliveryAddress.district"
@@ -175,9 +203,11 @@ onMounted(loadCustomers);
         <button
           class="neo-button primary"
           :disabled="!canCreate"
+          aria-label="Salvar cliente"
           @click="createCustomer"
         >
-          Salvar cliente
+          <span aria-hidden="true">💾</span>
+          <span class="sr-only">Salvar cliente</span>
         </button>
       </div>
     </div>
@@ -246,6 +276,38 @@ onMounted(loadCustomers);
   font-size: 1rem;
 }
 
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.78rem;
+}
+
+.card-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.title-trigger {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.collapse-toggle {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
 .form-grid {
   display: grid;
   gap: 0.62rem;
@@ -271,6 +333,10 @@ onMounted(loadCustomers);
   color: var(--text);
   font: inherit;
   padding: 0.56rem 0.68rem;
+}
+
+.required-field {
+  border-left: 3px solid var(--accent);
 }
 
 .neo-button {
@@ -332,6 +398,18 @@ td {
   text-align: center;
   padding: 1.6rem 0.5rem;
   color: var(--text-soft);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media (max-width: 900px) {

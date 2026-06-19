@@ -39,7 +39,7 @@ Assunto: Submissao - Desafio Tecnico ZDZCode 2026
 Ola, equipe ZDZCode.
 
 Conclui a implementacao do desafio tecnico full stack e disponibilizei a entrega no repositorio abaixo:
-https://github.com/DataCrash/Desafio-ZDZCode-2026
+[https://github.com/DataCrash/Desafio-ZDZCode-2026](https://github.com/DataCrash/Desafio-ZDZCode-2026)
 
 Resumo rapido:
 

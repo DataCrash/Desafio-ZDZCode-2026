@@ -232,6 +232,13 @@ Sincronização de status por label/estado:
 GH_OWNER="DataCrash" GH_REPO="Desafio-ZDZCode-2026" BOARD_TITLE="Board Desafio ZDZCode 2026" ./scripts/github/sync_board_status.sh
 ```
 
+## Ordem Recomendada de Leitura
+
+1. **Relatório final consolidado (principal): [docs/delivery/final-delivery-report.md](docs/delivery/final-delivery-report.md)**
+1. Fechamento final resumido: `docs/delivery/final-delivery-one-page.md`
+1. Checklist de aceite: `docs/quality/pdf-acceptance-checklist.md`
+1. Resumo executivo detalhado: `docs/quality/final-executive-summary.md`
+
 ## Evidências de aceite
 
 - Checklist consolidado do PDF: `docs/quality/pdf-acceptance-checklist.md`

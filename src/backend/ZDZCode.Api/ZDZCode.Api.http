@@ -1,11 +1,11 @@
-@ZDZCode.Api_HostAddress = http://localhost:5286
+@apiHostAddress = http://localhost:5286
 
-GET {{ZDZCode.Api_HostAddress}}/api/categorias
+GET {{apiHostAddress}}/api/categorias
 Accept: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/categorias
+POST {{apiHostAddress}}/api/categorias
 Content-Type: application/json
 
 {
@@ -15,12 +15,12 @@ Content-Type: application/json
 
 ###
 
-GET {{ZDZCode.Api_HostAddress}}/api/produtos
+GET {{apiHostAddress}}/api/produtos
 Accept: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/produtos
+POST {{apiHostAddress}}/api/produtos
 Content-Type: application/json
 
 {
@@ -35,12 +35,12 @@ Content-Type: application/json
 
 ###
 
-GET {{ZDZCode.Api_HostAddress}}/api/clientes
+GET {{apiHostAddress}}/api/clientes
 Accept: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/clientes
+POST {{apiHostAddress}}/api/clientes
 Content-Type: application/json
 
 {
@@ -61,12 +61,12 @@ Content-Type: application/json
 
 ###
 
-GET {{ZDZCode.Api_HostAddress}}/api/tags
+GET {{apiHostAddress}}/api/tags
 Accept: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/tags
+POST {{apiHostAddress}}/api/tags
 Content-Type: application/json
 
 {
@@ -76,11 +76,11 @@ Content-Type: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/tags/1/produtos/1
+POST {{apiHostAddress}}/api/tags/1/produtos/1
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/pedidos
+POST {{apiHostAddress}}/api/pedidos
 Content-Type: application/json
 
 {
@@ -92,7 +92,7 @@ Content-Type: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/pedidos/1/itens
+POST {{apiHostAddress}}/api/pedidos/1/itens
 Content-Type: application/json
 
 {
@@ -102,12 +102,12 @@ Content-Type: application/json
 
 ###
 
-GET {{ZDZCode.Api_HostAddress}}/api/pedidos
+GET {{apiHostAddress}}/api/pedidos
 Accept: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/pagamentos
+POST {{apiHostAddress}}/api/pagamentos
 Content-Type: application/json
 
 {
@@ -120,12 +120,12 @@ Content-Type: application/json
 
 ###
 
-GET {{ZDZCode.Api_HostAddress}}/api/pagamentos
+GET {{apiHostAddress}}/api/pagamentos
 Accept: application/json
 
 ###
 
-POST {{ZDZCode.Api_HostAddress}}/api/estoque/movimentacoes
+POST {{apiHostAddress}}/api/estoque/movimentacoes
 Content-Type: application/json
 
 {
@@ -137,7 +137,7 @@ Content-Type: application/json
 
 ###
 
-GET {{ZDZCode.Api_HostAddress}}/api/estoque/movimentacoes
+GET {{apiHostAddress}}/api/estoque/movimentacoes
 Accept: application/json
 
 ###

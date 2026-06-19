@@ -17,6 +17,7 @@ const orders = ref<Order[]>([]);
 const payments = ref<Payment[]>([]);
 const errorMessage = ref("");
 const loading = ref(false);
+const isCreateOpen = ref(false);
 
 const createForm = reactive({
   orderId: null as number | null,
@@ -89,11 +90,33 @@ onMounted(loadData);
     </header>
 
     <div class="neo-card form-card">
-      <h2>Novo pagamento</h2>
-      <div class="form-grid payment-grid">
+      <div class="card-head">
+        <h2>
+          <button
+            v-if="!isCreateOpen"
+            class="title-trigger"
+            type="button"
+            @click="isCreateOpen = true"
+          >
+            Novo pagamento
+          </button>
+          <span v-else>Novo pagamento</span>
+        </h2>
+        <button
+          class="collapse-toggle"
+          type="button"
+          :aria-label="
+            isCreateOpen ? 'Recolher formulário' : 'Expandir formulário'
+          "
+          @click="isCreateOpen = !isCreateOpen"
+        >
+          <span aria-hidden="true">{{ isCreateOpen ? "▴" : "▾" }}</span>
+        </button>
+      </div>
+      <div v-show="isCreateOpen" class="form-grid payment-grid">
         <select
           v-model.number="createForm.orderId"
-          class="neo-input"
+          class="neo-input required-field"
           @change="onOrderChange"
         >
           <option :value="null">Selecione pedido</option>
@@ -104,36 +127,38 @@ onMounted(loadData);
 
         <input
           v-model="createForm.method"
-          class="neo-input"
-          placeholder="Metodo"
+          class="neo-input required-field"
+          placeholder="Método *"
         />
         <input
           v-model="createForm.status"
-          class="neo-input"
-          placeholder="Status"
+          class="neo-input required-field"
+          placeholder="Status *"
         />
 
         <input
           v-model.number="createForm.value"
-          class="neo-input"
+          class="neo-input required-field"
           type="number"
           min="0.01"
           step="0.01"
-          placeholder="Valor"
+          placeholder="Valor *"
         />
 
         <input
           v-model="createForm.transactionReference"
           class="neo-input"
-          placeholder="Referencia da transacao"
+          placeholder="Referência da transação (opcional)"
         />
 
         <button
           class="neo-button primary"
           :disabled="!canCreate"
+          aria-label="Registrar pagamento"
           @click="createPayment"
         >
-          Registrar pagamento
+          <span aria-hidden="true">💾</span>
+          <span class="sr-only">Registrar pagamento</span>
         </button>
       </div>
     </div>
@@ -148,10 +173,10 @@ onMounted(loadData);
             <tr>
               <th>ID</th>
               <th>Pedido</th>
-              <th>Metodo</th>
+              <th>Método</th>
               <th>Status</th>
               <th>Valor</th>
-              <th>Referencia</th>
+              <th>Referência</th>
             </tr>
           </thead>
           <tbody>
@@ -202,6 +227,38 @@ onMounted(loadData);
   font-size: 1rem;
 }
 
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.78rem;
+}
+
+.card-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.title-trigger {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.collapse-toggle {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
 .form-grid {
   display: grid;
   gap: 0.62rem;
@@ -219,6 +276,10 @@ onMounted(loadData);
   color: var(--text);
   font: inherit;
   padding: 0.56rem 0.68rem;
+}
+
+.required-field {
+  border-left: 3px solid var(--accent);
 }
 
 .neo-button {
@@ -280,6 +341,18 @@ td {
   text-align: center;
   padding: 1.6rem 0.5rem;
   color: var(--text-soft);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media (max-width: 1200px) {

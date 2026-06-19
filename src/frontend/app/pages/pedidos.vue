@@ -33,6 +33,7 @@ const orders = ref<Order[]>([]);
 const selectedOrderId = ref<number | null>(null);
 const errorMessage = ref("");
 const loading = ref(false);
+const isCreateOpen = ref(false);
 
 const createOrderForm = reactive({
   customerId: null as number | null,
@@ -153,13 +154,39 @@ onMounted(loadData);
   <section class="screen">
     <header class="screen-header">
       <h1>Pedidos</h1>
-      <p>Criacao de pedidos e adicao de itens com totalizacao pelo backend.</p>
+      <p>Criação de pedidos e adição de itens com totalização pelo backend.</p>
     </header>
 
     <div class="neo-card form-card">
-      <h2>Novo pedido</h2>
-      <div class="form-grid order-form-grid">
-        <select v-model.number="createOrderForm.customerId" class="neo-input">
+      <div class="card-head">
+        <h2>
+          <button
+            v-if="!isCreateOpen"
+            class="title-trigger"
+            type="button"
+            @click="isCreateOpen = true"
+          >
+            Novo pedido
+          </button>
+          <span v-else>Novo pedido</span>
+        </h2>
+        <button
+          class="collapse-toggle"
+          type="button"
+          :aria-label="
+            isCreateOpen ? 'Recolher formulário' : 'Expandir formulário'
+          "
+          @click="isCreateOpen = !isCreateOpen"
+        >
+          <span aria-hidden="true">{{ isCreateOpen ? "▴" : "▾" }}</span>
+        </button>
+      </div>
+
+      <div v-show="isCreateOpen" class="form-grid order-form-grid">
+        <select
+          v-model.number="createOrderForm.customerId"
+          class="neo-input required-field"
+        >
           <option :value="null">Selecione cliente</option>
           <option
             v-for="customer in customers"
@@ -172,7 +199,7 @@ onMounted(loadData);
 
         <input
           v-model="createOrderForm.status"
-          class="neo-input"
+          class="neo-input required-field"
           placeholder="Status"
         />
 
@@ -188,15 +215,17 @@ onMounted(loadData);
         <input
           v-model="createOrderForm.note"
           class="neo-input"
-          placeholder="Observacao"
+          placeholder="Observação"
         />
 
         <button
           class="neo-button primary"
           :disabled="!canCreateOrder"
+          aria-label="Criar pedido"
           @click="createOrder"
         >
-          Criar pedido
+          <span aria-hidden="true">➕</span>
+          <span class="sr-only">Criar pedido</span>
         </button>
       </div>
     </div>
@@ -216,7 +245,7 @@ onMounted(loadData);
               <th>Subtotal</th>
               <th>Desconto</th>
               <th>Total</th>
-              <th>Acoes</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -230,9 +259,11 @@ onMounted(loadData);
               <td>
                 <button
                   class="neo-button ghost"
+                  aria-label="Selecionar pedido"
                   @click="selectedOrderId = order.id"
                 >
-                  Selecionar
+                  <span aria-hidden="true">🔎</span>
+                  <span class="sr-only">Selecionar pedido</span>
                 </button>
               </td>
             </tr>
@@ -280,7 +311,7 @@ onMounted(loadData);
               <th>ID</th>
               <th>Produto</th>
               <th>Qtd</th>
-              <th>Unitario</th>
+              <th>Unitário</th>
               <th>Total</th>
             </tr>
           </thead>
@@ -328,6 +359,38 @@ onMounted(loadData);
   font-size: 1rem;
 }
 
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.78rem;
+}
+
+.card-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.title-trigger {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.collapse-toggle {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
 .form-grid {
   display: grid;
   gap: 0.62rem;
@@ -345,6 +408,10 @@ onMounted(loadData);
   color: var(--text);
   font: inherit;
   padding: 0.56rem 0.68rem;
+}
+
+.required-field {
+  border-left: 3px solid var(--accent);
 }
 
 .neo-button {
@@ -412,6 +479,18 @@ td {
   text-align: center;
   padding: 1.6rem 0.5rem;
   color: var(--text-soft);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media (max-width: 1100px) {

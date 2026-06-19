@@ -16,7 +16,8 @@ const apiBase = config.public.apiBase as string;
 const categories = ref<Category[]>([]);
 const loading = ref(false);
 const errorMessage = ref("");
-const errorType = ref<"validation" | "conflict" | "server" | null>(null);
+const errorType = ref<"conflict" | "server" | null>(null);
+const isCreateOpen = ref(false);
 
 const createForm = reactive<CategoryPayload>({
   name: "",
@@ -42,7 +43,8 @@ async function loadCategories() {
   try {
     categories.value = await $fetch<Category[]>(`${apiBase}/api/categorias`);
   } catch (error: any) {
-    errorMessage.value = "Nao foi possivel carregar categorias.";
+    errorMessage.value =
+      error?.data?.message || "Não foi possível carregar categorias.";
     errorType.value = "server";
   } finally {
     loading.value = false;
@@ -66,6 +68,7 @@ async function createCategory() {
     categories.value = [...categories.value, created];
     createForm.name = "";
     createForm.description = null;
+    isCreateOpen.value = false;
   } catch (error: any) {
     const statusCode = error?.statusCode || error?.response?.status;
     errorMessage.value = error?.data?.message || "Falha ao criar categoria.";
@@ -114,8 +117,6 @@ async function saveEdit(id: number) {
 }
 
 async function removeCategory(id: number) {
-  if (!confirm("Tem certeza que deseja excluir esta categoria?")) return;
-
   errorMessage.value = "";
   errorType.value = null;
   try {
@@ -126,7 +127,7 @@ async function removeCategory(id: number) {
 
     if (statusCode === 409) {
       errorMessage.value =
-        "Nao eh possivel excluir uma categoria com produtos vinculados.";
+        "Não é possível excluir uma categoria com produtos vinculados.";
       errorType.value = "conflict";
       return;
     }
@@ -147,55 +148,84 @@ onMounted(loadCategories);
     </header>
 
     <div class="neo-card form-card">
-      <h2>Criar nova categoria</h2>
-      <div class="form-grid">
-        <div class="form-field">
+      <div class="card-head">
+        <h2>
+          <button
+            v-if="!isCreateOpen"
+            class="title-trigger"
+            type="button"
+            @click="isCreateOpen = true"
+          >
+            Criar nova categoria
+          </button>
+          <span v-else>Criar nova categoria</span>
+        </h2>
+        <button
+          class="collapse-toggle"
+          type="button"
+          :aria-label="
+            isCreateOpen ? 'Recolher formulário' : 'Expandir formulário'
+          "
+          @click="isCreateOpen = !isCreateOpen"
+        >
+          <span aria-hidden="true">{{ isCreateOpen ? "▴" : "▾" }}</span>
+        </button>
+      </div>
+
+      <div v-show="isCreateOpen" class="form-grid">
+        <div class="form-field required-field">
           <input
             v-model="createForm.name"
             class="neo-input"
             :class="{ 'input-error': hasCreateError }"
-            placeholder="Nome (mínimo 5 caracteres)"
-            aria-label="Nome da categoria"
-            aria-invalid="false"
+            placeholder="Nome da categoria *"
+            aria-label="Nome da categoria (obrigatório)"
           />
+          <span class="field-meta required">Obrigatório</span>
           <span v-if="hasCreateError" class="field-hint error">
-            Mínimo 5 caracteres
+            Mínimo de 5 caracteres
           </span>
         </div>
-        <input
-          v-model="createForm.description"
-          class="neo-input"
-          placeholder="Descrição (opcional)"
-          aria-label="Descrição da categoria"
-        />
+
+        <div class="form-field">
+          <input
+            v-model="createForm.description"
+            class="neo-input"
+            placeholder="Descrição (opcional)"
+            aria-label="Descrição da categoria"
+          />
+          <span class="field-meta optional">Opcional</span>
+        </div>
+
         <button
           class="neo-button primary"
           :disabled="!isCreateValid"
+          aria-label="Salvar categoria"
           @click="createCategory"
-          aria-label="Salvar nova categoria"
         >
-          Salvar
+          <span aria-hidden="true">💾</span>
+          <span class="sr-only">Salvar categoria</span>
         </button>
       </div>
     </div>
 
-    <div
+    <output
       v-if="errorMessage"
       :class="['neo-alert', errorType === 'conflict' ? 'warning' : 'danger']"
-      role="alert"
+      aria-live="polite"
     >
       <strong>{{ errorType === "conflict" ? "Aviso" : "Erro" }}:</strong>
       {{ errorMessage }}
-    </div>
+    </output>
 
-    <div v-if="loading" class="loading-state" role="status" aria-live="polite">
+    <output v-if="loading" class="loading-state" aria-live="polite">
       <div class="spinner"></div>
       <p>Carregando categorias...</p>
-    </div>
+    </output>
 
     <div class="neo-card table-card" v-if="!loading">
       <div class="table-wrap" v-if="categories.length > 0">
-        <table role="grid">
+        <table>
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -209,7 +239,10 @@ onMounted(loadCategories);
               <td class="id-col">{{ item.id }}</td>
               <td v-if="editingId !== item.id">{{ item.name }}</td>
               <td v-else>
-                <input v-model="editForm.name" class="neo-input" />
+                <input
+                  v-model="editForm.name"
+                  class="neo-input required-field"
+                />
               </td>
               <td v-if="editingId !== item.id">
                 {{ item.description || "-" }}
@@ -221,34 +254,38 @@ onMounted(loadCategories);
                 <template v-if="editingId !== item.id">
                   <button
                     class="neo-button ghost"
-                    @click="startEdit(item)"
                     aria-label="Editar categoria"
+                    @click="startEdit(item)"
                   >
-                    Editar
+                    <span aria-hidden="true">✏️</span>
+                    <span class="sr-only">Editar categoria</span>
                   </button>
                   <button
                     class="neo-button ghost danger"
-                    @click="removeCategory(item.id)"
                     aria-label="Excluir categoria"
+                    @click="removeCategory(item.id)"
                   >
-                    Excluir
+                    <span aria-hidden="true">🗑️</span>
+                    <span class="sr-only">Excluir categoria</span>
                   </button>
                 </template>
                 <template v-else>
                   <button
                     class="neo-button primary"
                     :disabled="!isEditValid"
-                    @click="saveEdit(item.id)"
                     aria-label="Salvar edição"
+                    @click="saveEdit(item.id)"
                   >
-                    Salvar
+                    <span aria-hidden="true">💾</span>
+                    <span class="sr-only">Salvar edição</span>
                   </button>
                   <button
                     class="neo-button ghost"
-                    @click="cancelEdit"
                     aria-label="Cancelar edição"
+                    @click="cancelEdit"
                   >
-                    Cancelar
+                    <span aria-hidden="true">✖️</span>
+                    <span class="sr-only">Cancelar edição</span>
                   </button>
                 </template>
               </td>
@@ -275,7 +312,6 @@ onMounted(loadCategories);
 .screen-header h1 {
   margin: 0;
   font-family: "Sora", "Manrope", sans-serif;
-  letter-spacing: 0.01em;
 }
 
 .screen-header p {
@@ -289,24 +325,68 @@ onMounted(loadCategories);
   background: color-mix(in srgb, var(--surface-strong) 86%, transparent);
   box-shadow: var(--shadow);
   padding: 1rem;
-  transition:
-    border-color 140ms ease,
-    transform 140ms ease;
 }
 
-.neo-card:hover {
-  border-color: color-mix(in srgb, var(--accent) 28%, var(--line));
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.78rem;
 }
 
-.form-card h2 {
-  margin: 0 0 0.78rem;
+.card-head h2 {
+  margin: 0;
   font-size: 1rem;
+}
+
+.title-trigger {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.collapse-toggle {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
 }
 
 .form-grid {
   display: grid;
   gap: 0.62rem;
   grid-template-columns: 1.2fr 1fr auto;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.required-field .neo-input,
+.neo-input.required-field {
+  border-left: 3px solid var(--accent);
+}
+
+.field-meta {
+  font-size: 0.72rem;
+  padding-left: 0.2rem;
+}
+
+.field-meta.required {
+  color: var(--accent-strong);
+}
+
+.field-meta.optional {
+  color: var(--text-soft);
 }
 
 .neo-input {
@@ -318,12 +398,20 @@ onMounted(loadCategories);
   font: inherit;
   padding: 0.56rem 0.68rem;
   outline: none;
-  transition: border-color 120ms ease;
 }
 
 .neo-input:focus {
   border-color: color-mix(in srgb, var(--accent) 68%, var(--line));
   box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.neo-input.input-error {
+  border-color: var(--danger);
+}
+
+.field-hint.error {
+  color: var(--danger);
+  font-size: 0.75rem;
 }
 
 .neo-button {
@@ -333,30 +421,11 @@ onMounted(loadCategories);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
-  transition:
-    transform 120ms ease,
-    border-color 120ms ease,
-    color 120ms ease,
-    background-color 120ms ease;
-}
-
-.neo-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.55;
 }
 
 .neo-button.primary {
   background: var(--accent);
   color: #05201d;
-}
-
-.neo-button:not(:disabled):hover {
-  transform: translateY(-1px);
-}
-
-.neo-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .neo-button.ghost {
@@ -365,12 +434,13 @@ onMounted(loadCategories);
   color: var(--text-soft);
 }
 
-.neo-button.ghost:hover {
-  color: var(--text);
-}
-
 .neo-button.ghost.danger {
   color: var(--danger);
+}
+
+.neo-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .neo-alert {
@@ -385,82 +455,10 @@ onMounted(loadCategories);
   background: color-mix(in srgb, var(--danger) 12%, transparent);
 }
 
-.loading-note {
-  margin: 0;
-  color: var(--text-soft);
-}
-
-.table-wrap {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 620px;
-}
-
-th,
-td {
-  border-bottom: 1px solid var(--line);
-  padding: 0.72rem 0.5rem;
-  text-align: left;
-}
-
-th {
-  color: var(--text-soft);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.01em;
-}
-
-tbody tr {
-  transition: background-color 120ms ease;
-}
-
-tbody tr:hover {
-  background: var(--row-hover);
-}
-
-.id-col {
-  color: var(--text-soft);
-  font-weight: 700;
-}
-
-.actions {
-  display: flex;
-  gap: 0.4rem;
-  align-items: center;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 1.4rem 0.8rem;
-}
-
-.empty-state p {
-  color: var(--text-soft);
-  margin: 0.35rem 0 0;
-}
-
-.form-field {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.field-hint {
-  font-size: 0.75rem;
-  padding-left: 0.5rem;
-}
-
-.field-hint.error {
-  color: var(--danger);
-}
-
-.neo-input.input-error {
-  border-color: var(--danger);
+.neo-alert.warning {
+  border-color: color-mix(in srgb, #d97706 35%, var(--line));
+  color: #5c3a00;
+  background: color-mix(in srgb, #d97706 20%, var(--surface));
 }
 
 .loading-state {
@@ -487,75 +485,58 @@ tbody tr:hover {
   }
 }
 
-.neo-alert.warning {
-  border-color: color-mix(in srgb, var(--warning) 35%, var(--line));
-  color: var(--warning);
-  background: color-mix(in srgb, var(--warning) 12%, transparent);
-}
-
-.empty-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.empty-state strong {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--text);
-}
-
-.form-grid {
-  grid-template-columns: 1.5fr 1fr auto;
-}
-
 .table-wrap {
-  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
 }
 
 table {
-  min-width: 600px;
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.72rem 0.5rem;
+  text-align: left;
 }
 
 .id-col {
-  font-size: 0.875rem;
+  color: var(--text-soft);
+  font-weight: 700;
 }
 
 .actions {
-  flex-wrap: wrap;
+  display: flex;
+  gap: 0.4rem;
 }
 
 .empty-state {
-  padding: 2rem 1rem;
+  text-align: center;
+  padding: 1.4rem 0.8rem;
 }
 
-@media (max-width: 1024px) {
-  .form-grid {
-    grid-template-columns: 1fr 1fr auto;
-  }
+.empty-state p {
+  color: var(--text-soft);
+  margin: 0.35rem 0 0;
 }
 
-@media (max-width: 768px) {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 920px) {
   .form-grid {
     grid-template-columns: 1fr;
-  }
-
-  .form-grid button {
-    width: 100%;
-  }
-
-  th,
-  td {
-    padding: 0.6rem 0.4rem;
-    font-size: 0.875rem;
-  }
-
-  .neo-button {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.875rem;
-  }
-
-  .actions {
-    gap: 0.2rem;
   }
 }
 </style>
